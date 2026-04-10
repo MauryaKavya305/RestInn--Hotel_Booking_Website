@@ -21,10 +21,10 @@ const Navbar = () => {
   }, []);
 
   const navLinks = [
-    { name: 'Home', path: '/' },
-    { name: 'Hotels', path: '/hotels' },
-    { name: 'Experience', path: '/experience' },
-    { name: 'About', path: '/about' },
+    { name: 'Home', path: '#home' },
+    { name: 'Hotels', path: '#hotels' },
+    { name: 'Experience', path: '#experience' },
+    { name: 'About', path: '#about' },
   ];
 
   const { openSignIn } = useClerk();
@@ -44,9 +44,13 @@ const Navbar = () => {
           {navLinks.map((link) => (
             <li key={link.name}>
               {/* Changed to Link */}
-              <Link to={link.path} className="hover:text-blue-400 cursor-pointer transition-colors">
+              {/* <Link to={link.path} className="hover:text-blue-400 cursor-pointer transition-colors">
                 {link.name}
-              </Link>
+              </Link> */}
+
+              <a href={link.path} className="hover:text-blue-400 cursor-pointer transition-colors">
+              {link.name}
+              </a>
             </li>
           ))}
         </ul>
@@ -155,7 +159,13 @@ const Navbar = () => {
           <ul className="space-y-6 flex-1">
             {navLinks.map((link) => (
               <li key={link.name}>
-                <Link to={link.path} onClick={toggleSidebar} className="text-lg font-semibold text-gray-700 hover:text-blue-600">{link.name}</Link>
+                <a 
+                  href={link.path} 
+                  onClick={toggleSidebar} 
+                  className="text-lg font-semibold text-gray-700 hover:text-blue-600"
+                >
+                {link.name}
+                </a>
               </li>
             ))}
           </ul>

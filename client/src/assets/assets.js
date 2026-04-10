@@ -179,6 +179,32 @@ export const testimonials = [
     { id: 3, name: "Kavya Maurya", address: "Uttar Pradesh, India", image: "https://images.unsplash.com/photo-1701615004837-40d8573b6652?q=80&w=200", rating: 5, review: "Amazing service! I always find the best luxury accommodations through RestInn. Their recommendations never disappoint!" }
 ];
 
+export const allHotels = [
+  {
+    id: 1,
+    name: "The Taj Mahal Palace",
+    city: "Mumbai",
+    country: "India",
+    price: 450,
+    rating: 5.0,
+    image: "https://images.unsplash.com/photo-1582719508461-905c673771fd?q=80&w=600",
+    tags: ["Free WiFi", "Infinity Pool", "Spa", "Sea View", "Butler Service"],
+    roomType: "Luxury Rooms"
+  },
+  {
+    id: 2,
+    name: "Standard Residency",
+    city: "Delhi",
+    country: "India",
+    price: 80,
+    rating: 4.2,
+    image: "https://images.unsplash.com/photo-1505773508401-e26ca9845131?q=80&w=600",
+    tags: ["Free WiFi", "Breakfast", "AC", "Laundry"],
+    roomType: "Single Bed"
+  },
+  // ... Add more objects here to test the filtering
+];
+
 // Facility Icon
 // export const facilityIcons = {
 //     "Free WiFi": assets.freeWifiIcon,
