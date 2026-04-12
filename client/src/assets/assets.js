@@ -628,6 +628,726 @@ export const allHotels = [
 ];
 
 
+export const hotelDetails = [
+
+{
+id:1,
+discount:20,
+reviewCount:"240k+",
+extraImages:[
+"https://images.unsplash.com/photo-1566073771259-6a8506099945",
+"https://images.unsplash.com/photo-1520250497591-112f2f40a3f4",
+"https://images.unsplash.com/photo-1551882547-ff43c63fedfe",
+"https://images.unsplash.com/photo-1445019980597-93fa8acb246c"
+],
+features:[
+"Luxury rooms with sea view",
+"24/7 room service",
+"Free airport shuttle",
+"Infinity swimming pool"
+]
+},
+
+{
+id:2,
+discount:15,
+reviewCount:"180k+",
+extraImages:[
+"https://images.unsplash.com/photo-1542314831-068cd1dbfeeb",
+"https://images.unsplash.com/photo-1571896349842-33c89424de2d",
+"https://images.unsplash.com/photo-1566665797739-1674de7a421a",
+"https://images.unsplash.com/photo-1521783988744-80971b649605"
+],
+features:[
+"Complimentary breakfast",
+"City skyline view",
+"Luxury spa",
+"Premium dining"
+]
+},
+
+{
+id:3,
+discount:25,
+reviewCount:"310k+",
+extraImages:[
+"https://images.unsplash.com/photo-1551882547-ff43c63fedfe",
+"https://images.unsplash.com/photo-1582719508461-905c673771fd",
+"https://images.unsplash.com/photo-1501117716987-c8e1ecb2100b",
+"https://images.unsplash.com/photo-1584132967334-10e028bd69f7"
+],
+features:[
+"Private balcony rooms",
+"Outdoor swimming pool",
+"Fitness center",
+"Free WiFi"
+]
+},
+
+{
+id:4,
+discount:18,
+reviewCount:"150k+",
+extraImages:[
+"https://images.unsplash.com/photo-1560448204-e02f11c3d0e2",
+"https://images.unsplash.com/photo-1584132915807-fd1f5fbc078f",
+"https://images.unsplash.com/photo-1582719478250-c89cae4dc85b",
+"https://images.unsplash.com/photo-1582719508461-905c673771fd"
+],
+features:[
+"Luxury suites",
+"Beach access",
+"Premium dining",
+"Spa & wellness"
+]
+},
+
+{
+id:5,
+discount:22,
+reviewCount:"275k+",
+extraImages:[
+"https://images.unsplash.com/photo-1566665797739-1674de7a421a",
+"https://images.unsplash.com/photo-1578683010236-d716f9a3f461",
+"https://images.unsplash.com/photo-1520250497591-112f2f40a3f4",
+"https://images.unsplash.com/photo-1582719478250-c89cae4dc85b"
+],
+features:[
+"Lake view rooms",
+"Free breakfast",
+"Premium spa",
+"Airport transfer"
+]
+},
+{
+id:6,
+discount:17,
+reviewCount:"132k+",
+extraImages:[
+"https://images.unsplash.com/photo-1590490360182-c33d57733427",
+"https://images.unsplash.com/photo-1582719508461-905c673771fd",
+"https://images.unsplash.com/photo-1505691723518-36a5ac3b2d8c",
+"https://images.unsplash.com/photo-1560448204-603b3fc33ddc"
+],
+features:[
+"Modern luxury interiors",
+"Free high-speed WiFi",
+"Fitness center",
+"Complimentary breakfast"
+]
+},
+
+{
+id:7,
+discount:30,
+reviewCount:"410k+",
+extraImages:[
+"https://images.unsplash.com/photo-1521783988744-80971b649605",
+"https://images.unsplash.com/photo-1584132967334-10e028bd69f7",
+"https://images.unsplash.com/photo-1582719478250-c89cae4dc85b",
+"https://images.unsplash.com/photo-1501117716987-c8e1ecb2100b"
+],
+features:[
+"Premium luxury suites",
+"Infinite rooftop pool",
+"City skyline view",
+"24/7 concierge service"
+]
+},
+
+{
+id:8,
+discount:14,
+reviewCount:"98k+",
+extraImages:[
+"https://images.unsplash.com/photo-1578683010236-d716f9a3f461",
+"https://images.unsplash.com/photo-1590490360182-c33d57733427",
+"https://images.unsplash.com/photo-1560448204-e02f11c3d0e2",
+"https://images.unsplash.com/photo-1582719478250-c89cae4dc85b"
+],
+features:[
+"Budget luxury stay",
+"Free cancellation",
+"Restaurant & cafe",
+"Parking available"
+]
+},
+
+{
+id:9,
+discount:21,
+reviewCount:"205k+",
+extraImages:[
+"https://images.unsplash.com/photo-1551882547-ff43c63fedfe",
+"https://images.unsplash.com/photo-1520250497591-112f2f40a3f4",
+"https://images.unsplash.com/photo-1582719508461-905c673771fd",
+"https://images.unsplash.com/photo-1566665797739-1674de7a421a"
+],
+features:[
+"Luxury spa & wellness",
+"Swimming pool",
+"Premium restaurant",
+"Airport shuttle"
+]
+},
+
+{
+id:10,
+discount:19,
+reviewCount:"167k+",
+extraImages:[
+"https://images.unsplash.com/photo-1560448204-603b3fc33ddc",
+"https://images.unsplash.com/photo-1501117716987-c8e1ecb2100b",
+"https://images.unsplash.com/photo-1584132967334-10e028bd69f7",
+"https://images.unsplash.com/photo-1590490360182-c33d57733427"
+],
+features:[
+"Elegant modern rooms",
+"Complimentary breakfast",
+"Free WiFi",
+"City center location"
+]
+},
+{
+id:11,
+discount:24,
+reviewCount:"290k+",
+extraImages:[
+"https://images.unsplash.com/photo-1582719508461-905c673771fd",
+"https://images.unsplash.com/photo-1584132915807-fd1f5fbc078f",
+"https://images.unsplash.com/photo-1560448204-e02f11c3d0e2",
+"https://images.unsplash.com/photo-1501117716987-c8e1ecb2100b"
+],
+features:[
+"Ocean view luxury rooms",
+"Infinity swimming pool",
+"Premium fine dining",
+"Free airport transfer"
+]
+},
+
+{
+id:12,
+discount:16,
+reviewCount:"145k+",
+extraImages:[
+"https://images.unsplash.com/photo-1590490360182-c33d57733427",
+"https://images.unsplash.com/photo-1566665797739-1674de7a421a",
+"https://images.unsplash.com/photo-1582719478250-c89cae4dc85b",
+"https://images.unsplash.com/photo-1520250497591-112f2f40a3f4"
+],
+features:[
+"Comfortable deluxe rooms",
+"24/7 room service",
+"Free WiFi",
+"Restaurant & bar"
+]
+},
+
+{
+id:13,
+discount:27,
+reviewCount:"315k+",
+extraImages:[
+"https://images.unsplash.com/photo-1584132967334-10e028bd69f7",
+"https://images.unsplash.com/photo-1505691723518-36a5ac3b2d8c",
+"https://images.unsplash.com/photo-1560448204-603b3fc33ddc",
+"https://images.unsplash.com/photo-1551882547-ff43c63fedfe"
+],
+features:[
+"Luxury suites",
+"Private balconies",
+"Swimming pool",
+"Fitness center"
+]
+},
+
+{
+id:14,
+discount:13,
+reviewCount:"87k+",
+extraImages:[
+"https://images.unsplash.com/photo-1578683010236-d716f9a3f461",
+"https://images.unsplash.com/photo-1582719478250-c89cae4dc85b",
+"https://images.unsplash.com/photo-1590490360182-c33d57733427",
+"https://images.unsplash.com/photo-1560448204-e02f11c3d0e2"
+],
+features:[
+"Budget friendly luxury",
+"Free cancellation",
+"Parking available",
+"Free breakfast"
+]
+},
+
+{
+id:15,
+discount:20,
+reviewCount:"198k+",
+extraImages:[
+"https://images.unsplash.com/photo-1521783988744-80971b649605",
+"https://images.unsplash.com/photo-1501117716987-c8e1ecb2100b",
+"https://images.unsplash.com/photo-1582719508461-905c673771fd",
+"https://images.unsplash.com/photo-1584132915807-fd1f5fbc078f"
+],
+features:[
+"Premium spa",
+"Rooftop restaurant",
+"Luxury interiors",
+"Airport pickup"
+]
+},
+
+{
+id:16,
+discount:18,
+reviewCount:"156k+",
+extraImages:[
+"https://images.unsplash.com/photo-1560448204-603b3fc33ddc",
+"https://images.unsplash.com/photo-1551882547-ff43c63fedfe",
+"https://images.unsplash.com/photo-1584132967334-10e028bd69f7",
+"https://images.unsplash.com/photo-1520250497591-112f2f40a3f4"
+],
+features:[
+"Elegant deluxe rooms",
+"Free WiFi",
+"Swimming pool",
+"Restaurant"
+]
+},
+
+{
+id:17,
+discount:22,
+reviewCount:"240k+",
+extraImages:[
+"https://images.unsplash.com/photo-1582719478250-c89cae4dc85b",
+"https://images.unsplash.com/photo-1566665797739-1674de7a421a",
+"https://images.unsplash.com/photo-1505691723518-36a5ac3b2d8c",
+"https://images.unsplash.com/photo-1578683010236-d716f9a3f461"
+],
+features:[
+"Lake view rooms",
+"Complimentary breakfast",
+"Luxury spa",
+"Fitness center"
+]
+},
+
+{
+id:18,
+discount:29,
+reviewCount:"355k+",
+extraImages:[
+"https://images.unsplash.com/photo-1501117716987-c8e1ecb2100b",
+"https://images.unsplash.com/photo-1584132915807-fd1f5fbc078f",
+"https://images.unsplash.com/photo-1560448204-e02f11c3d0e2",
+"https://images.unsplash.com/photo-1590490360182-c33d57733427"
+],
+features:[
+"Ultra luxury suites",
+"Infinity pool",
+"Private dining",
+"Premium service"
+]
+},
+
+{
+id:19,
+discount:12,
+reviewCount:"76k+",
+extraImages:[
+"https://images.unsplash.com/photo-1560448204-603b3fc33ddc",
+"https://images.unsplash.com/photo-1582719508461-905c673771fd",
+"https://images.unsplash.com/photo-1551882547-ff43c63fedfe",
+"https://images.unsplash.com/photo-1578683010236-d716f9a3f461"
+],
+features:[
+"Budget rooms",
+"Free WiFi",
+"Parking",
+"Restaurant"
+]
+},
+
+{
+id:20,
+discount:26,
+reviewCount:"288k+",
+extraImages:[
+"https://images.unsplash.com/photo-1521783988744-80971b649605",
+"https://images.unsplash.com/photo-1505691723518-36a5ac3b2d8c",
+"https://images.unsplash.com/photo-1566665797739-1674de7a421a",
+"https://images.unsplash.com/photo-1584132967334-10e028bd69f7"
+],
+features:[
+"Premium rooms",
+"Luxury spa",
+"Swimming pool",
+"Airport transfer"
+]
+},
+{
+id:21,
+discount:23,
+reviewCount:"210k+",
+extraImages:[
+"https://images.unsplash.com/photo-1560448204-e02f11c3d0e2",
+"https://images.unsplash.com/photo-1582719508461-905c673771fd",
+"https://images.unsplash.com/photo-1584132915807-fd1f5fbc078f",
+"https://images.unsplash.com/photo-1520250497591-112f2f40a3f4"
+],
+features:[
+"Premium city view",
+"Complimentary breakfast",
+"Luxury interiors",
+"24/7 room service"
+]
+},
+
+{
+id:22,
+discount:19,
+reviewCount:"165k+",
+extraImages:[
+"https://images.unsplash.com/photo-1505691723518-36a5ac3b2d8c",
+"https://images.unsplash.com/photo-1566665797739-1674de7a421a",
+"https://images.unsplash.com/photo-1582719478250-c89cae4dc85b",
+"https://images.unsplash.com/photo-1590490360182-c33d57733427"
+],
+features:[
+"Comfortable deluxe rooms",
+"Swimming pool",
+"Restaurant & cafe",
+"Free WiFi"
+]
+},
+
+{
+id:23,
+discount:28,
+reviewCount:"340k+",
+extraImages:[
+"https://images.unsplash.com/photo-1584132967334-10e028bd69f7",
+"https://images.unsplash.com/photo-1551882547-ff43c63fedfe",
+"https://images.unsplash.com/photo-1501117716987-c8e1ecb2100b",
+"https://images.unsplash.com/photo-1560448204-603b3fc33ddc"
+],
+features:[
+"Luxury suites",
+"Infinite rooftop pool",
+"Premium dining",
+"Private balcony"
+]
+},
+
+{
+id:24,
+discount:14,
+reviewCount:"110k+",
+extraImages:[
+"https://images.unsplash.com/photo-1578683010236-d716f9a3f461",
+"https://images.unsplash.com/photo-1590490360182-c33d57733427",
+"https://images.unsplash.com/photo-1584132915807-fd1f5fbc078f",
+"https://images.unsplash.com/photo-1582719508461-905c673771fd"
+],
+features:[
+"Budget luxury stay",
+"Parking available",
+"Free breakfast",
+"24/7 support"
+]
+},
+
+{
+id:25,
+discount:21,
+reviewCount:"225k+",
+extraImages:[
+"https://images.unsplash.com/photo-1521783988744-80971b649605",
+"https://images.unsplash.com/photo-1505691723518-36a5ac3b2d8c",
+"https://images.unsplash.com/photo-1566665797739-1674de7a421a",
+"https://images.unsplash.com/photo-1551882547-ff43c63fedfe"
+],
+features:[
+"Lake view rooms",
+"Luxury spa",
+"Swimming pool",
+"Free airport shuttle"
+]
+},
+
+{
+id:26,
+discount:17,
+reviewCount:"142k+",
+extraImages:[
+"https://images.unsplash.com/photo-1560448204-603b3fc33ddc",
+"https://images.unsplash.com/photo-1501117716987-c8e1ecb2100b",
+"https://images.unsplash.com/photo-1584132967334-10e028bd69f7",
+"https://images.unsplash.com/photo-1590490360182-c33d57733427"
+],
+features:[
+"Modern interiors",
+"Complimentary breakfast",
+"Free WiFi",
+"City center location"
+]
+},
+
+{
+id:27,
+discount:30,
+reviewCount:"420k+",
+extraImages:[
+"https://images.unsplash.com/photo-1520250497591-112f2f40a3f4",
+"https://images.unsplash.com/photo-1582719478250-c89cae4dc85b",
+"https://images.unsplash.com/photo-1584132915807-fd1f5fbc078f",
+"https://images.unsplash.com/photo-1560448204-e02f11c3d0e2"
+],
+features:[
+"Ultra luxury suites",
+"Infinity swimming pool",
+"Private dining",
+"Premium service"
+]
+},
+
+{
+id:28,
+discount:16,
+reviewCount:"135k+",
+extraImages:[
+"https://images.unsplash.com/photo-1578683010236-d716f9a3f461",
+"https://images.unsplash.com/photo-1582719508461-905c673771fd",
+"https://images.unsplash.com/photo-1566665797739-1674de7a421a",
+"https://images.unsplash.com/photo-1505691723518-36a5ac3b2d8c"
+],
+features:[
+"Comfortable deluxe rooms",
+"Free WiFi",
+"Restaurant",
+"Parking"
+]
+},
+
+{
+id:29,
+discount:25,
+reviewCount:"295k+",
+extraImages:[
+"https://images.unsplash.com/photo-1551882547-ff43c63fedfe",
+"https://images.unsplash.com/photo-1584132967334-10e028bd69f7",
+"https://images.unsplash.com/photo-1521783988744-80971b649605",
+"https://images.unsplash.com/photo-1560448204-603b3fc33ddc"
+],
+features:[
+"Premium luxury stay",
+"Rooftop restaurant",
+"Spa & wellness",
+"Airport pickup"
+]
+},
+
+{
+id:30,
+discount:18,
+reviewCount:"172k+",
+extraImages:[
+"https://images.unsplash.com/photo-1501117716987-c8e1ecb2100b",
+"https://images.unsplash.com/photo-1584132915807-fd1f5fbc078f",
+"https://images.unsplash.com/photo-1590490360182-c33d57733427",
+"https://images.unsplash.com/photo-1560448204-e02f11c3d0e2"
+],
+features:[
+"Elegant rooms",
+"Swimming pool",
+"Free breakfast",
+"Fitness center"
+]
+},
+{
+id:31,
+discount:22,
+reviewCount:"205k+",
+extraImages:[
+"https://images.unsplash.com/photo-1560448204-603b3fc33ddc",
+"https://images.unsplash.com/photo-1582719508461-905c673771fd",
+"https://images.unsplash.com/photo-1566665797739-1674de7a421a",
+"https://images.unsplash.com/photo-1505691723518-36a5ac3b2d8c"
+],
+features:[
+"Luxury city view rooms",
+"Complimentary breakfast",
+"Swimming pool",
+"Free WiFi"
+]
+},
+
+{
+id:32,
+discount:27,
+reviewCount:"318k+",
+extraImages:[
+"https://images.unsplash.com/photo-1551882547-ff43c63fedfe",
+"https://images.unsplash.com/photo-1584132967334-10e028bd69f7",
+"https://images.unsplash.com/photo-1521783988744-80971b649605",
+"https://images.unsplash.com/photo-1560448204-e02f11c3d0e2"
+],
+features:[
+"Premium luxury suites",
+"Rooftop infinity pool",
+"Private balcony",
+"Fine dining restaurant"
+]
+},
+
+{
+id:33,
+discount:15,
+reviewCount:"128k+",
+extraImages:[
+"https://images.unsplash.com/photo-1590490360182-c33d57733427",
+"https://images.unsplash.com/photo-1582719478250-c89cae4dc85b",
+"https://images.unsplash.com/photo-1578683010236-d716f9a3f461",
+"https://images.unsplash.com/photo-1560448204-603b3fc33ddc"
+],
+features:[
+"Comfortable deluxe rooms",
+"Restaurant & cafe",
+"Free parking",
+"24/7 reception"
+]
+},
+
+{
+id:34,
+discount:24,
+reviewCount:"266k+",
+extraImages:[
+"https://images.unsplash.com/photo-1501117716987-c8e1ecb2100b",
+"https://images.unsplash.com/photo-1584132915807-fd1f5fbc078f",
+"https://images.unsplash.com/photo-1520250497591-112f2f40a3f4",
+"https://images.unsplash.com/photo-1566665797739-1674de7a421a"
+],
+features:[
+"Lake view luxury rooms",
+"Spa & wellness",
+"Swimming pool",
+"Airport transfer"
+]
+},
+
+{
+id:35,
+discount:20,
+reviewCount:"189k+",
+extraImages:[
+"https://images.unsplash.com/photo-1521783988744-80971b649605",
+"https://images.unsplash.com/photo-1582719508461-905c673771fd",
+"https://images.unsplash.com/photo-1505691723518-36a5ac3b2d8c",
+"https://images.unsplash.com/photo-1551882547-ff43c63fedfe"
+],
+features:[
+"Modern interiors",
+"Complimentary breakfast",
+"Fitness center",
+"Free WiFi"
+]
+},
+
+{
+id:36,
+discount:29,
+reviewCount:"352k+",
+extraImages:[
+"https://images.unsplash.com/photo-1584132967334-10e028bd69f7",
+"https://images.unsplash.com/photo-1560448204-e02f11c3d0e2",
+"https://images.unsplash.com/photo-1582719478250-c89cae4dc85b",
+"https://images.unsplash.com/photo-1520250497591-112f2f40a3f4"
+],
+features:[
+"Ultra luxury suites",
+"Infinite pool",
+"Premium dining",
+"Private lounge access"
+]
+},
+
+{
+id:37,
+discount:18,
+reviewCount:"160k+",
+extraImages:[
+"https://images.unsplash.com/photo-1590490360182-c33d57733427",
+"https://images.unsplash.com/photo-1566665797739-1674de7a421a",
+"https://images.unsplash.com/photo-1501117716987-c8e1ecb2100b",
+"https://images.unsplash.com/photo-1560448204-603b3fc33ddc"
+],
+features:[
+"Elegant deluxe rooms",
+"Restaurant",
+"Free WiFi",
+"City center location"
+]
+},
+
+{
+id:38,
+discount:26,
+reviewCount:"287k+",
+extraImages:[
+"https://images.unsplash.com/photo-1551882547-ff43c63fedfe",
+"https://images.unsplash.com/photo-1584132967334-10e028bd69f7",
+"https://images.unsplash.com/photo-1521783988744-80971b649605",
+"https://images.unsplash.com/photo-1505691723518-36a5ac3b2d8c"
+],
+features:[
+"Luxury suites",
+"Spa & wellness",
+"Swimming pool",
+"Airport pickup"
+]
+},
+
+{
+id:39,
+discount:13,
+reviewCount:"94k+",
+extraImages:[
+"https://images.unsplash.com/photo-1578683010236-d716f9a3f461",
+"https://images.unsplash.com/photo-1590490360182-c33d57733427",
+"https://images.unsplash.com/photo-1560448204-e02f11c3d0e2",
+"https://images.unsplash.com/photo-1582719478250-c89cae4dc85b"
+],
+features:[
+"Budget friendly luxury",
+"Free breakfast",
+"Parking available",
+"24/7 support"
+]
+},
+
+{
+id:40,
+discount:31,
+reviewCount:"450k+",
+extraImages:[
+"https://images.unsplash.com/photo-1520250497591-112f2f40a3f4",
+"https://images.unsplash.com/photo-1584132915807-fd1f5fbc078f",
+"https://images.unsplash.com/photo-1566665797739-1674de7a421a",
+"https://images.unsplash.com/photo-1551882547-ff43c63fedfe"
+],
+features:[
+"Ultra premium suites",
+"Infinity pool",
+"Fine dining",
+"Luxury spa & wellness"
+]
+}
+];
+
+
 // Facility Icon
 // export const facilityIcons = {
 //     "Free WiFi": assets.freeWifiIcon,

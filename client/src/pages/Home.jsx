@@ -24,7 +24,7 @@ import Hero from '../components/HeroSection';
 import FeaturedHotels from '../components/FeaturedHotels';
 import Offers from '../components/Offers';
 import Experiences from '../components/Experience';
-import Footer from '../components/Footer';
+// import Footer from '../components/Footer';
 
 const Home = () => {
   return (
@@ -46,9 +46,9 @@ const Home = () => {
       </section>
 
       {/* You can add an ID here for About if it's in your footer or a separate component */}
-      <section id="about">
+      {/* <section id="about">
         <Footer /> 
-      </section>
+      </section> */}
     </div>
   );
 };

@@ -4,7 +4,7 @@
 
 // const AllHotels = () => {
 //   const [filteredHotels, setFilteredHotels] = useState(allHotels);
-//   const [priceRange, setPriceRange] = useState(1000);
+  // const [priceRange, setPriceRange] = useState(1000);
 //   const [selectedRoom, setSelectedRoom] = useState("All");
 
 //   return (
@@ -73,58 +73,58 @@
 //             ))}
 //           </div>
 
-//           {/* RIGHT: FILTER SECTION (25%) */}
-//           <aside className="w-full lg:w-80 h-fit bg-white p-6 rounded-2xl shadow-sm border border-gray-100 sticky top-28">
-//             <div className="flex items-center gap-2 mb-6 pb-4 border-b">
-//               <Filter className="w-5 h-5 text-blue-600" />
-//               <h2 className="text-xl font-bold">Filters</h2>
-//             </div>
+          // {/* RIGHT: FILTER SECTION (25%) */}
+          // <aside className="w-full lg:w-80 h-fit bg-white p-6 rounded-2xl shadow-sm border border-gray-100 sticky top-28">
+          //   <div className="flex items-center gap-2 mb-6 pb-4 border-b">
+          //     <Filter className="w-5 h-5 text-blue-600" />
+          //     <h2 className="text-xl font-bold">Filters</h2>
+          //   </div>
 
-//             {/* Filter 1: Room Size */}
-//             <div className="mb-8">
-//               <h3 className="font-bold text-gray-800 mb-4 text-sm uppercase tracking-wide">Room Category</h3>
-//               <div className="space-y-3">
-//                 {["Single Bed", "Double Bed", "Family Suites", "Luxury Rooms"].map((type) => (
-//                   <label key={type} className="flex items-center gap-3 cursor-pointer group">
-//                     <input type="checkbox" className="w-5 h-5 rounded border-gray-300 text-blue-600 focus:ring-blue-500" />
-//                     <span className="text-gray-600 group-hover:text-blue-600 transition text-sm">{type}</span>
-//                   </label>
-//                 ))}
-//               </div>
-//             </div>
+          //   {/* Filter 1: Room Size */}
+          //   <div className="mb-8">
+          //     <h3 className="font-bold text-gray-800 mb-4 text-sm uppercase tracking-wide">Room Category</h3>
+          //     <div className="space-y-3">
+          //       {["Single Bed", "Double Bed", "Family Suites", "Luxury Rooms"].map((type) => (
+          //         <label key={type} className="flex items-center gap-3 cursor-pointer group">
+          //           <input type="checkbox" className="w-5 h-5 rounded border-gray-300 text-blue-600 focus:ring-blue-500" />
+          //           <span className="text-gray-600 group-hover:text-blue-600 transition text-sm">{type}</span>
+          //         </label>
+          //       ))}
+          //     </div>
+          //   </div>
 
-//             {/* Filter 2: Price Range */}
-//             <div className="mb-8">
-//               <h3 className="font-bold text-gray-800 mb-4 text-sm uppercase tracking-wide">Price Range</h3>
-//               <input 
-//                 type="range" 
-//                 min="0" 
-//                 max="1000" 
-//                 value={priceRange}
-//                 onChange={(e) => setPriceRange(e.target.value)}
-//                 className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-blue-600" 
-//               />
-//               <div className="flex justify-between mt-2 text-sm font-bold text-gray-600">
-//                 <span>$0</span>
-//                 <span>${priceRange}</span>
-//               </div>
-//             </div>
+          //   {/* Filter 2: Price Range */}
+          //   <div className="mb-8">
+          //     <h3 className="font-bold text-gray-800 mb-4 text-sm uppercase tracking-wide">Price Range</h3>
+          //     <input 
+          //       type="range" 
+          //       min="0" 
+          //       max="1000" 
+          //       value={priceRange}
+          //       onChange={(e) => setPriceRange(e.target.value)}
+          //       className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-blue-600" 
+          //     />
+          //     <div className="flex justify-between mt-2 text-sm font-bold text-gray-600">
+          //       <span>$0</span>
+          //       <span>${priceRange}</span>
+          //     </div>
+          //   </div>
 
-//             {/* Filter 3: Sort By */}
-//             <div className="mb-4">
-//               <h3 className="font-bold text-gray-800 mb-4 text-sm uppercase tracking-wide">Sort By</h3>
-//               <select className="w-full p-3 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
-//                 <option>Featured</option>
-//                 <option>Price: Low to High</option>
-//                 <option>Price: High to Low</option>
-//                 <option>Ratings: High to Low</option>
-//               </select>
-//             </div>
+          //   {/* Filter 3: Sort By */}
+          //   <div className="mb-4">
+          //     <h3 className="font-bold text-gray-800 mb-4 text-sm uppercase tracking-wide">Sort By</h3>
+          //     <select className="w-full p-3 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+          //       <option>Featured</option>
+          //       <option>Price: Low to High</option>
+          //       <option>Price: High to Low</option>
+          //       <option>Ratings: High to Low</option>
+          //     </select>
+          //   </div>
 
-//             <button className="w-full mt-6 bg-gray-900 text-white py-3 rounded-xl font-bold hover:bg-black transition">
-//               Apply Filters
-//             </button>
-//           </aside>
+          //   <button className="w-full mt-6 bg-gray-900 text-white py-3 rounded-xl font-bold hover:bg-black transition">
+          //     Apply Filters
+          //   </button>
+          // </aside>
 
 //         </div>
 //       </div>
@@ -136,10 +136,12 @@
 
 
 import React, { useState, useEffect } from 'react';
-import { Star, MapPin, ChevronLeft, ChevronRight, Wifi, Coffee, Wind } from 'lucide-react';
+import { Star, MapPin, ChevronLeft, ChevronRight, Wifi, Coffee, Wind, Filter, ChevronDown } from 'lucide-react';
 import { allHotels } from '../assets/assets';
+import { Link } from 'react-router-dom';
 
 const AllHotels = () => {
+    const [priceRange, setPriceRange] = useState(1000);
   const [currentPage, setCurrentPage] = useState(1);
   const hotelsPerPage = 10;
 
@@ -176,20 +178,34 @@ const AllHotels = () => {
                 className="bg-white rounded-3xl overflow-hidden shadow-sm border border-gray-100 flex flex-col md:flex-row p-6 gap-8 hover:shadow-xl transition-all duration-300"
               >
                 {/* Larger Image Section */}
-                <div className="w-full md:w-80 h-64 md:h-72 shrink-0 overflow-hidden rounded-2xl">
+                {/* <div className="w-full md:w-80 h-64 md:h-72 shrink-0 overflow-hidden rounded-2xl">
                   <img 
                     src={hotel.image} 
                     className="w-full h-full object-cover transform hover:scale-105 transition-transform duration-500" 
                     alt={hotel.name} 
                   />
-                </div>
+                </div> */}
+
+                {/* 2. WRAP IMAGE IN LINK */}
+                <Link to={`/room/${hotel.id}`} className="w-full md:w-80 h-64 md:h-72 shrink-0 overflow-hidden rounded-2xl block">
+                  <img 
+                    src={hotel.image} 
+                    className="w-full h-full object-cover transform hover:scale-105 transition-transform duration-500" 
+                    alt={hotel.name} 
+                  />
+                </Link>
 
                 {/* Details Section with more "Breathing Room" */}
                 <div className="flex-1 flex flex-col justify-between py-2">
                   <div>
                     <div className="flex justify-between items-start mb-4">
                       <div>
-                        <h3 className="text-2xl font-bold text-gray-900 mb-2">{hotel.name}</h3>
+                        {/* <h3 className="text-2xl font-bold text-gray-900 mb-2">{hotel.name}</h3> */}
+
+                        {/* 3. OPTIONAL: WRAP NAME IN LINK TOO */}
+                        <Link to={`/room/${hotel.id}`}>
+                          <h3 className="text-2xl font-bold text-gray-900 mb-2 hover:text-blue-600 transition">{hotel.name}</h3>
+                        </Link>
                         <p className="text-gray-500 flex items-center text-base">
                           <MapPin className="w-4 h-4 mr-2 text-blue-600" /> 
                           {hotel.city}, {hotel.country}
@@ -219,9 +235,16 @@ const AllHotels = () => {
                         <span className="text-gray-400 font-medium">/night</span>
                       </div>
                     </div>
-                    <button className="bg-blue-600 text-white px-10 py-4 rounded-2xl font-bold hover:bg-blue-700 transition-all shadow-lg shadow-blue-100 active:scale-95">
+                    {/* <button className="bg-blue-600 text-white px-10 py-4 rounded-2xl font-bold hover:bg-blue-700 transition-all shadow-lg shadow-blue-100 active:scale-95">
                       Book This Room
-                    </button>
+                    </button> */}
+
+                    {/* 4. WRAP BUTTON IN LINK */}
+                    <Link to={`/room/${hotel.id}`}>
+                      <button className="bg-blue-600 text-white px-10 py-4 rounded-2xl font-bold hover:bg-blue-700 transition-all shadow-lg shadow-blue-100 active:scale-95">
+                        Book This Room
+                      </button>
+                    </Link>
                   </div>
                 </div>
               </div>
@@ -264,35 +287,29 @@ const AllHotels = () => {
             </div>
           </div>
 
-          {/* RIGHT: FILTERS (Sticky) */}
-          {/* <aside className="hidden lg:block w-80 h-fit bg-white p-8 rounded-3xl shadow-sm border border-gray-100 sticky top-28">
-             {/* Filter code remains same as previous */}
-             {/* <h2 className="text-xl font-bold mb-6">Refine Search</h2> */}
-             {/* ... */}
-          {/* </aside> */}
 
-          //           {/* RIGHT: FILTER SECTION (25%) */}
-           <aside className="w-full lg:w-80 h-fit bg-white p-6 rounded-2xl shadow-sm border border-gray-100 sticky top-28">
-             <div className="flex items-center gap-2 mb-6 pb-4 border-b">
-                
-               <h2 className="text-xl font-bold">Filters</h2>
-             </div>
+          {/* RIGHT: FILTER SECTION (25%) */}
+          {/* <aside className="w-full lg:w-80 h-fit bg-white p-6 rounded-2xl shadow-sm border border-gray-100 sticky top-28">
+            <div className="flex items-center gap-2 mb-6 pb-4 border-b">
+              <Filter className="w-5 h-5 text-blue-600" />
+              <h2 className="text-xl font-bold">Filters</h2>
+            </div> */}
 
-             {/* Filter 1: Room Size */}
-             <div className="mb-8">
-               <h3 className="font-bold text-gray-800 mb-4 text-sm uppercase tracking-wide">Room Category</h3>
-               <div className="space-y-3">
-                 {["Single Bed", "Double Bed", "Family Suites", "Luxury Rooms"].map((type) => (
+            {/* Filter 1: Room Size */}
+            {/* <div className="mb-8">
+              <h3 className="font-bold text-gray-800 mb-4 text-sm uppercase tracking-wide">Room Category</h3>
+              <div className="space-y-3">
+                {["Single Bed", "Double Bed", "Family Suites", "Luxury Rooms"].map((type) => (
                   <label key={type} className="flex items-center gap-3 cursor-pointer group">
                     <input type="checkbox" className="w-5 h-5 rounded border-gray-300 text-blue-600 focus:ring-blue-500" />
                     <span className="text-gray-600 group-hover:text-blue-600 transition text-sm">{type}</span>
                   </label>
                 ))}
               </div>
-            </div>
+            </div> */}
 
             {/* Filter 2: Price Range */}
-            <div className="mb-8">
+            {/* <div className="mb-8">
               <h3 className="font-bold text-gray-800 mb-4 text-sm uppercase tracking-wide">Price Range</h3>
               <input 
                 type="range" 
@@ -306,10 +323,10 @@ const AllHotels = () => {
                 <span>$0</span>
                 <span>${priceRange}</span>
               </div>
-            </div>
+            </div> */}
 
             {/* Filter 3: Sort By */}
-            <div className="mb-4">
+            {/* <div className="mb-4">
               <h3 className="font-bold text-gray-800 mb-4 text-sm uppercase tracking-wide">Sort By</h3>
               <select className="w-full p-3 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
                 <option>Featured</option>
@@ -322,7 +339,129 @@ const AllHotels = () => {
             <button className="w-full mt-6 bg-gray-900 text-white py-3 rounded-xl font-bold hover:bg-black transition">
               Apply Filters
             </button>
+          </aside> */}
+
+
+          {/* RIGHT: FILTER SECTION */}
+          <aside className="hidden lg:block w-80 shrink-0">
+            <div className="sticky top-28 h-fit max-h-[calc(100vh-120px)] overflow-y-auto bg-white p-8 rounded-3xl shadow-sm border border-gray-100 custom-scrollbar">
+    
+              <div className="flex items-center gap-2 mb-6 pb-4 border-b">
+                <Filter className="w-5 h-5 text-blue-600" />
+                <h2 className="text-xl font-bold text-gray-900">Refine Search</h2>
+              </div>
+
+              {/* Filter 1: Room Size */}
+              <div className="mb-8">
+                <h3 className="font-bold text-gray-800 mb-4 text-sm uppercase tracking-wide">Room Category</h3>
+                <div className="space-y-3">
+                  {["Single Bed", "Double Bed", "Family Suites", "Luxury Rooms"].map((type) => (
+                    <label key={type} className="flex items-center gap-3 cursor-pointer group">
+                      <input type="checkbox" className="w-5 h-5 rounded border-gray-300 text-blue-600 focus:ring-blue-500 transition-all" />
+                      <span className="text-gray-600 group-hover:text-blue-600 transition text-sm font-medium">{type}</span>
+                    </label>
+                  ))}
+                </div>
+              </div>
+
+              {/* Filter 2: Price Range */}
+              <div className="mb-8">
+                <h3 className="font-bold text-gray-800 mb-4 text-sm uppercase tracking-wide">Max Price: ${priceRange}</h3>
+                <input 
+                  type="range" 
+                  min="50" 
+                  max="1000" 
+                  step="10"
+                  value={priceRange}
+                  onChange={(e) => setPriceRange(e.target.value)}
+                  className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-blue-600" 
+                />
+                <div className="flex justify-between mt-2 text-xs font-bold text-gray-400">
+                  <span>$50</span>
+                  <span>$1000+</span>
+                </div>
+              </div>
+
+              {/* Filter 3: Sort By */}
+              <div className="mb-8">
+                <h3 className="font-bold text-gray-800 mb-4 text-sm uppercase tracking-wide">Sort Results</h3>
+                <div className="relative">
+                  <select className="w-full p-3 bg-gray-50 border border-gray-200 rounded-xl text-sm font-medium focus:outline-none focus:ring-2 focus:ring-blue-500 appearance-none">
+                    <option>Featured Stays</option>
+                    <option>Price: Low to High</option>
+                    <option>Price: High to Low</option>
+                    <option>Ratings: High to Low</option>
+                  </select>
+                  <ChevronDown className="absolute right-3 top-3.5 w-4 h-4 text-gray-400 pointer-events-none" />
+                </div>
+              </div>
+
+              {/* Apply Button */}
+              <button className="w-full bg-gray-900 text-white py-4 rounded-2xl font-bold hover:bg-black transition-all active:scale-95 shadow-lg shadow-gray-200">
+                Apply Filters
+              </button>
+            </div>
           </aside>
+
+          {/* RIGHT: FILTERS (Sticky) */}
+          {/* <aside className="hidden lg:block w-80 h-fit bg-white p-8 rounded-3xl shadow-sm border border-gray-100 sticky top-28">
+             {/* Filter code remains same as previous */}
+             {/* <h2 className="text-xl font-bold mb-6">Refine Search</h2> */}
+             {/* ... */}
+          {/* </aside> */}
+
+                     {/* RIGHT: FILTER SECTION (25%) */}
+           {/* <aside className="w-full lg:w-80 h-fit bg-white p-6 rounded-2xl shadow-sm border border-gray-100 sticky top-28">
+             <div className="flex items-center gap-2 mb-6 pb-4 border-b">
+                
+               <h2 className="text-xl font-bold">Filters</h2>
+             </div> */}
+
+             {/* Filter 1: Room Size */}
+             {/* <div className="mb-8">
+               <h3 className="font-bold text-gray-800 mb-4 text-sm uppercase tracking-wide">Room Category</h3>
+               <div className="space-y-3">
+                 {["Single Bed", "Double Bed", "Family Suites", "Luxury Rooms"].map((type) => (
+                  <label key={type} className="flex items-center gap-3 cursor-pointer group">
+                    <input type="checkbox" className="w-5 h-5 rounded border-gray-300 text-blue-600 focus:ring-blue-500" />
+                    <span className="text-gray-600 group-hover:text-blue-600 transition text-sm">{type}</span>
+                  </label>
+                ))}
+              </div>
+            </div> */}
+
+            {/* Filter 2: Price Range */}
+            {/* <div className="mb-8">
+              <h3 className="font-bold text-gray-800 mb-4 text-sm uppercase tracking-wide">Price Range</h3>
+              <input 
+                type="range" 
+                min="0" 
+                max="1000" 
+                value={priceRange}
+                onChange={(e) => setPriceRange(e.target.value)}
+                className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-blue-600" 
+              />
+              <div className="flex justify-between mt-2 text-sm font-bold text-gray-600">
+                <span>$0</span>
+                <span>${priceRange}</span>
+              </div>
+            </div> */}
+
+            {/* Filter 3: Sort By */}
+            {/* <div className="mb-4">
+              <h3 className="font-bold text-gray-800 mb-4 text-sm uppercase tracking-wide">Sort By</h3>
+              <select className="w-full p-3 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <option>Featured</option>
+                <option>Price: Low to High</option>
+                <option>Price: High to Low</option>
+                <option>Ratings: High to Low</option>
+              </select>
+            </div>
+
+            <button className="w-full mt-6 bg-gray-900 text-white py-3 rounded-xl font-bold hover:bg-black transition">
+              Apply Filters
+            </button>
+          </aside> */}
         </div>
       </div>
     </div>
