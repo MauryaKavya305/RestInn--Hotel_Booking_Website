@@ -27,10 +27,11 @@ const Navbar = () => {
     { name: 'About', path: '#about' },
   ];
 
-  const { openSignIn } = useClerk();
+  // const { openSignIn } = useClerk();
   const { user } = useUser();
   const navigate = useNavigate();
   const location = useLocation();
+  const { openSignIn, signOut } = useClerk();
 
   return (
     <>
@@ -113,7 +114,8 @@ const Navbar = () => {
           </UserButton>
         ) : (
           <button 
-            onClick={() => navigate('/sign-in')} 
+            // onClick={() => navigate('/sign-in')} 
+            onClick={() => openSignIn()}
             className="bg-blue-600 hover:bg-blue-700 px-6 py-2 rounded-full font-semibold transition shadow-md"
           >
             Login
@@ -171,7 +173,10 @@ const Navbar = () => {
           </ul>
           <div className="border-t pt-6 space-y-4">
             
-            <button onClick={openSignIn} className="w-full flex items-center justify-center gap-2 bg-blue-600 text-white py-3 rounded-lg font-bold"><User size={18} /> Login</button>
+            <button 
+            onClick={() => signOut(() => navigate("/"))}
+            //  onClick={openSignIn}
+             className="w-full flex items-center justify-center gap-2 bg-blue-600 text-white py-3 rounded-lg font-bold"><User size={18} /> Login</button>
             <button className="w-full flex items-center justify-center gap-2 border border-red-200 text-red-500 py-3 rounded-lg font-bold"><LogOut size={18} /> Sign Out</button>
           </div>
         </div>

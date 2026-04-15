@@ -1348,6 +1348,23 @@ features:[
 ];
 
 
+
+// This will be empty for now as per your requirement
+export const myBookings = [
+    /* Example of how a booking object will look later:
+    {
+        id: 1,
+        hotelId: 1, // To link back to allHotels for the photo/name
+        guests: 2,
+        totalPayment: 450,
+        checkIn: "2024-05-15",
+        checkOut: "2024-05-20",
+        paymentStatus: "Paid" // or "Unpaid"
+    }
+    */
+];
+
+
 // Facility Icon
 // export const facilityIcons = {
 //     "Free WiFi": assets.freeWifiIcon,
