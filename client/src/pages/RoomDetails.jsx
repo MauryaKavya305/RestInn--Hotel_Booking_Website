@@ -165,10 +165,12 @@ import React, { useState } from 'react'; // Added useState
 import { useParams, useNavigate } from 'react-router-dom'; // Added useNavigate
 import { allHotels, hotelDetails } from '../assets/assets';
 import { Star, MapPin, Users, Calendar, CheckCircle2, Zap, ShieldCheck } from 'lucide-react';
+import { useBookings } from '../context/BookingContext';
 
 const RoomDetails = () => {
   const { id } = useParams();
   const navigate = useNavigate();
+  const { addBooking } = useBookings();
 
   // --- 1. NEW STATE FOR FORM & AVAILABILITY ---
   const [dates, setDates] = useState({ checkIn: '', checkOut: '', guests: 1 });
@@ -201,8 +203,21 @@ const RoomDetails = () => {
   };
 
   const handleBookNow = () => {
-    // We navigate to my-bookings. 
-    // Tip: Later we can pass the 'dates' state to the MyBookings page using Context
+    // Create the booking object
+    const newBooking = {
+      id: Date.now(), // Unique ID
+      hotelId: basicInfo.id,
+      name: basicInfo.name,
+      image: basicInfo.image,
+      city: basicInfo.city,
+      price: basicInfo.price,
+      checkIn: dates.checkIn,
+      checkOut: dates.checkOut,
+      guests: dates.guests,
+      paymentStatus: "Unpaid" // Default status
+    };
+
+    addBooking(newBooking); // Save to context
     navigate('/my-bookings');
   };
 

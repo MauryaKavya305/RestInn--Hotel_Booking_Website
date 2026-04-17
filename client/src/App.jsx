@@ -7,6 +7,8 @@ import RoomDetails from './pages/RoomDetails';
 import Footer from './components/Footer';
 import MyBookings from './pages/MyBookings';
 import { ClerkProvider } from '@clerk/react';
+import { BookingProvider } from './context/BookingContext';
+import HotelRegistration from './components/HotelRegistration';
 
 // 2. Get your Publishable Key from your .env file
 const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
@@ -31,6 +33,7 @@ const AppContent = () => {
         <Route path="/all-hotels" element={<AllHotels />} />
         <Route path="/room/:id" element={<RoomDetails />} />
         <Route path="/my-bookings" element={<MyBookings />} />
+        <Route path="/register-hotel" element={<HotelRegistration />} />
 
       </Routes>
 
@@ -42,9 +45,12 @@ const AppContent = () => {
 function App() {
   return (
     <ClerkProvider publishableKey={PUBLISHABLE_KEY} afterSignOutUrl="/">
-      <Router>
-        <AppContent />
-      </Router>
+      <BookingProvider>
+        <Router>
+          <AppContent />
+        </Router>
+      </BookingProvider>
+      
     </ClerkProvider>
     // <Router>
     //   <AppContent />
