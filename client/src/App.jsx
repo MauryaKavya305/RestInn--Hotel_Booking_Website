@@ -10,6 +10,7 @@ import { ClerkProvider } from '@clerk/react';
 import { BookingProvider } from './context/BookingContext';
 import AddHotel from './pages/AddHotel';
 import OwnerDashboard from './pages/OwnerDashboard';
+import {Toaster} from "react-hot-toast";
 
 // 2. Get your Publishable Key from your .env file
 const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
