@@ -52,6 +52,7 @@ function App() {
         <Router>
           <AppContent />
         </Router>
+        <Toaster position="top-right" />
       </BookingProvider>
       
     </ClerkProvider>

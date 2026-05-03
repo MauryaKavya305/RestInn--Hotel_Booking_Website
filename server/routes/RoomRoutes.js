@@ -1,10 +1,52 @@
+// import express from "express";
+// import upload from "../middleware/uploadMiddleware.js";
+// import { protect } from "../middleware/authMiddleware.js";
+// import { createRoom } from "../controllers/RoomController.js";
+// import { getRooms } from "../controllers/RoomController.js";
+// import { getOwnerRooms } from "../controllers/RoomController.js";
+// import { toggleRoomAvailability } from "../controllers/RoomController.js";
+
+// const roomRouter = express.Router();
+
+// roomRouter.post("/", upload.array("images", 4), protect, createRoom);
+// roomRouter.get("/", getRooms);
+// roomRouter.get("/owner", protect, getOwnerRooms);
+// roomRouter.post("/toggle-availability", protect, toggleRoomAvailability);
+
+
+// export default roomRouter;
+
+
+// import express from "express";
+// import upload from "../middleware/uploadMiddleware.js";   // FIX: fixed folder name
+// import { protect } from "../middleware/authMiddleware.js";
+// import {
+//     createRoom,
+//     getRooms,
+//     getOwnerRooms,
+//     toggleRoomAvailability
+// } from "../controllers/RoomController.js";   // FIX: fixed casing to match actual filename
+
+// const roomRouter = express.Router();
+
+// roomRouter.post("/", upload.array("images", 4), protect, createRoom);
+// roomRouter.get("/", getRooms);
+// roomRouter.get("/owner", protect, getOwnerRooms);
+// roomRouter.post("/toggle-availability", protect, toggleRoomAvailability);
+
+// export default roomRouter;
+
+
 import express from "express";
 import upload from "../middleware/uploadMiddleware.js";
 import { protect } from "../middleware/authMiddleware.js";
-import { createRoom } from "../controllers/RoomController.js";
-import { getRooms } from "../controllers/RoomController.js";
-import { getOwnerRooms } from "../controllers/RoomController.js";
-import { toggleRoomAvailability } from "../controllers/RoomController.js";
+import {
+    createRoom,
+    getRooms,
+    getOwnerRooms,
+    toggleRoomAvailability,
+    deleteRoom
+} from "../controllers/RoomController.js";
 
 const roomRouter = express.Router();
 
@@ -12,6 +54,6 @@ roomRouter.post("/", upload.array("images", 4), protect, createRoom);
 roomRouter.get("/", getRooms);
 roomRouter.get("/owner", protect, getOwnerRooms);
 roomRouter.post("/toggle-availability", protect, toggleRoomAvailability);
-
+roomRouter.delete("/:roomId", protect, deleteRoom);
 
 export default roomRouter;

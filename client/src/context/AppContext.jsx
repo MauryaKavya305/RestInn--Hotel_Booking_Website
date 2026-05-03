@@ -1,7 +1,7 @@
 import axios from "axios";
 import { createContext, useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useUser, useAuth } from "@clerk/clerk-react";
+import { useUser, useAuth } from "@clerk/react";
 
 axios.defaults.baseURL = import.meta.env.VITE_BACKEND_URL;
 const AppContext = createContext();
