@@ -117,6 +117,7 @@
 import Booking from "../models/Booking.js";
 import Room from "../models/Room.js";
 import Hotel from "../models/Hotel.js";
+import transporter from "../configs/nodeMailer.js";
 
 // Helper: check if a room is available for the given date range
 const checkAvailability = async ({ checkInDate, checkOutDate, room }) => {
@@ -176,6 +177,27 @@ export const createBooking = async (req, res) => {
             totalPrice,
         });
 
+        const mailOptions = {
+            from: process.env.SENDER_MAIL,
+            to: req.user.email,
+            subject: "Hotel Booking Details",
+            html: `<h2> Your Booking details </h2>
+            <p> Dear ${req.user.username}, </p>
+            <p> Thank you for your booking in our hotel. Here are your booking details: </p>
+            <ul>
+                <li> <strong>Booking ID: </strong> ${booking._id} </li>
+                <li> <strong>Hotel Name: </strong> ${roomData.hotel.name} </li>
+                <li> <strong>Location: </strong> ${roomData.hotel.address} </li>
+                <li> <strong>Check-in Date: </strong> ${booking.checkInDate.toDateString()} </li>
+                <li> <strong>Booking Amount: </strong> ${process.env.CURRENCY || '$'} ${booking.totalPrice} / night </li>
+
+            </ul>
+            <p> We look forward to welcome you! </p>
+            <p> If you need to make any changes, then feel free to contact us. </p>
+        }
+
+        await transporter.sendMail()
+
         res.json({ success: true, message: "Booking created successfully" });
     } catch (error) {
         console.error(error);
@@ -217,3 +239,14 @@ export const getHotelBookings = async (req, res) => {
         res.json({ success: false, message: "Failed to fetch hotel bookings" });
     }
 };
+
+
+// export const stripePayment = async (req, res) => {
+//     try {
+//         const {bookingId} = req.body;
+//         const booking = await Booking.findById(bookingId);
+
+//         const roomData = await Room.findById(booking.room).populate("hotel");
+//         const totalPrice = booking.totalPrice;
+
+//         const { origin } = req.headers;
