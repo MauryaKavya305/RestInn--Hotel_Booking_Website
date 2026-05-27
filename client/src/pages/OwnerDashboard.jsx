@@ -523,7 +523,8 @@ const OwnerDashboard = () => {
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
   const { signOut } = useClerk();
-  const { getToken } = useAuth();
+//  const { getToken } = useAuth();
+  const { getToken, isLoaded, isSignedIn } = useAuth();
 
   const backendUrl = import.meta.env.VITE_BACKEND_URL || 'http://localhost:3000';
 
@@ -532,6 +533,11 @@ const OwnerDashboard = () => {
     try {
       setLoading(true);
       const token = await getToken();
+      if (!token) {
+        console.log("No token found");
+        return;
+      }
+
       const response = await axios.get(`${backendUrl}/api/bookings/hotel`, {
         headers: { Authorization: `Bearer ${token}` }
       });
@@ -552,6 +558,11 @@ const OwnerDashboard = () => {
     try {
       setLoading(true);
       const token = await getToken();
+      if (!token) {
+        console.log("No token found");
+        return;
+      }
+
       const response = await axios.get(`${backendUrl}/api/hotels/my-hotel`, {
         headers: { Authorization: `Bearer ${token}` }
       });
@@ -571,6 +582,11 @@ const OwnerDashboard = () => {
     try {
       setLoading(true);
       const token = await getToken();
+      if (!token) {
+        console.log("No token found");
+        return;
+      }
+
       const response = await axios.get(`${backendUrl}/api/rooms/owner`, {
         headers: { Authorization: `Bearer ${token}` }
       });
@@ -592,6 +608,10 @@ const OwnerDashboard = () => {
     
     try {
       const token = await getToken();
+      if (!token) {
+        console.log("No token found");
+        return;
+      }
       const response = await axios.delete(`${backendUrl}/api/hotels/${ownerHotel._id}`, {
         headers: { Authorization: `Bearer ${token}` }
       });
@@ -611,6 +631,10 @@ const OwnerDashboard = () => {
   const handleToggleAvailability = async (roomId) => {
     try {
       const token = await getToken();
+      if (!token) {
+        console.log("No token found");
+        return;
+      }
       const response = await axios.post(
         `${backendUrl}/api/rooms/toggle-availability`,
         { roomId },
@@ -633,6 +657,11 @@ const OwnerDashboard = () => {
     
     try {
       const token = await getToken();
+      if (!token) {
+        console.log("No token found");
+        return;
+      }
+      
       const response = await axios.delete(
         `${backendUrl}/api/rooms/${roomId}`,
         { headers: { Authorization: `Bearer ${token}` } }
@@ -650,6 +679,8 @@ const OwnerDashboard = () => {
 
   // Auto-refresh data when switching tabs
   useEffect(() => {
+    if (!isLoaded || !isSignedIn) return;
+
     if (activeTab === 'dashboard') {
       fetchDashboardData();
     } else if (activeTab === 'my-hotel') {
@@ -657,7 +688,7 @@ const OwnerDashboard = () => {
     } else if (activeTab === 'my-rooms') {
       fetchOwnerRooms();
     }
-  }, [activeTab]);
+  }, [activeTab, isLoaded, isSignedIn]);
 
   const handleLogout = () => {
     signOut(() => navigate('/'));

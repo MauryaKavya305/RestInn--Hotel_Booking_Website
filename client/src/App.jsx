@@ -11,6 +11,8 @@ import { BookingProvider } from './context/BookingContext';
 import AddHotel from './pages/AddHotel';
 import OwnerDashboard from './pages/OwnerDashboard';
 import {Toaster} from "react-hot-toast";
+import { useAuth } from "@clerk/react";
+import { Navigate } from "react-router-dom";
 
 // 2. Get your Publishable Key from your .env file
 const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
@@ -18,6 +20,16 @@ const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
 if (!PUBLISHABLE_KEY) {
   throw new Error("Missing Publishable Key");
 }
+
+const ProtectedRoute = ({ children }) => {
+  const { isSignedIn } = useAuth();
+
+  if (!isSignedIn) {
+    return <Navigate to="/" />;
+  }
+
+  return children;
+};
 
 // Create a wrapper to handle the conditional Navbar/Home rendering
 const AppContent = () => {
@@ -36,7 +48,14 @@ const AppContent = () => {
         <Route path="/room/:id" element={<RoomDetails />} />
         <Route path="/my-bookings" element={<MyBookings />} />
         <Route path="/add-hotel" element={<AddHotel />} />
-        <Route path="/owner-dashboard" element={<OwnerDashboard />} />
+        {/* <Route path="/owner-dashboard" element={<OwnerDashboard />} /> */}
+        <Route path="/owner-dashboard"
+          element={
+            <ProtectedRoute>
+              <OwnerDashboard />
+            </ProtectedRoute>
+          }
+        />
 
       </Routes>
 

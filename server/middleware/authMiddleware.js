@@ -44,9 +44,21 @@ export const protect = async (req, res, next) => {
                 userId: authObject.userId,
             });
             const clerkUser = await clerkClient.users.getUser(authObject.userId);
-            const email = clerkUser.email_addresses?.[0]?.email_address || clerkUser.primary_email_address?.email_address || '';
-            const username = [clerkUser.first_name, clerkUser.last_name].filter(Boolean).join(' ') || clerkUser.username || email.split('@')[0] || 'Clerk User';
-            const image = clerkUser.image_url || '';
+            // const email = clerkUser.email_addresses?.[0]?.email_address || clerkUser.primary_email_address?.email_address || '';
+            // const username = [clerkUser.first_name, clerkUser.last_name].filter(Boolean).join(' ') || clerkUser.username || email.split('@')[0] || 'Clerk User';
+            // const image = clerkUser.image_url || '';
+
+            const email =
+                        clerkUser.emailAddresses?.[0]?.emailAddress ||
+                        clerkUser.primaryEmailAddress?.emailAddress ||
+                        '';
+
+            const username =
+                            `${clerkUser.firstName || ''} ${clerkUser.lastName || ''}`.trim() ||
+                            clerkUser.username ||
+                            (email ? email.split('@')[0] : 'Clerk User');
+
+            const image = clerkUser.imageUrl || '';
 
             if (!email) {
                 return res.json({ success: false, message: "Unable to create user: missing email from Clerk profile" });
@@ -64,8 +76,27 @@ export const protect = async (req, res, next) => {
 
         req.user = user;   // attach full user object to request
         next();
+    // } catch (error) {
+    //     console.error('Auth middleware error:', error.message);
+    //     console.log(error);
+    //     res.json({ success: false, message: error.message });
+    // }
+
     } catch (error) {
-        console.error('Auth middleware error:', error);
-        res.json({ success: false, message: error.message });
+    console.log("========== FULL ERROR ==========");
+    console.log(error);
+    console.log("MESSAGE:", error.message);
+
+    if (error.errors) {
+        console.log("VALIDATION ERRORS:");
+        Object.values(error.errors).forEach(err => {
+            console.log(err.message);
+        });
     }
+
+    res.json({
+        success: false,
+        message: error.message
+    });
+}
 }

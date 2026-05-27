@@ -193,10 +193,10 @@ export const createBooking = async (req, res) => {
 
             </ul>
             <p> We look forward to welcome you! </p>
-            <p> If you need to make any changes, then feel free to contact us. </p>
+            <p> If you need to make any changes, then feel free to contact us. </p>`
         }
 
-        await transporter.sendMail()
+        await transporter.sendMail();
 
         res.json({ success: true, message: "Booking created successfully" });
     } catch (error) {
