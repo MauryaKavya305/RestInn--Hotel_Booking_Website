@@ -183,7 +183,7 @@ export const deleteRoom = async (req, res) => {
         if (!room) return res.json({ success: false, message: "Room not found" });
         
         // Verify the room belongs to this user's hotel
-        if (room.hotel.owner.toString() !== req.user._id) {
+        if (room.hotel.owner.toString() !== req.user._id.toString()) {
             return res.json({ success: false, message: "Unauthorized" });
         }
         
