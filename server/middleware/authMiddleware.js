@@ -1,20 +1,3 @@
-// import User from '../models/User.js';
-
-// // middleware to check if user is authenticated
-// export const protect = async(req, res, next) => {
-//     const {userId} = req.auth;    // get userId from clerk auth object
-
-//     if(!userId) {
-//         res.json({success: false, message: "Not authenticated"});
-//     } else {
-//         const user = await User.findById(userId);
-//         req.user = user;    // attach user object to request
-//         next();
-//     }
-
-// }
-
-
 import User from '../models/User.js';
 import { clerkClient } from '@clerk/express';
 

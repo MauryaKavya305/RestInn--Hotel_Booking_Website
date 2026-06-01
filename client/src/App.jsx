@@ -13,6 +13,7 @@ import OwnerDashboard from './pages/OwnerDashboard';
 import {Toaster} from "react-hot-toast";
 import { useAuth } from "@clerk/react";
 import { Navigate } from "react-router-dom";
+import AddRoom from './pages/AddRoom';
 
 // 2. Get your Publishable Key from your .env file
 const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
@@ -56,6 +57,7 @@ const AppContent = () => {
             </ProtectedRoute>
           }
         />
+        <Route path="/add-room" element={<AddRoom />} />
 
       </Routes>
 
