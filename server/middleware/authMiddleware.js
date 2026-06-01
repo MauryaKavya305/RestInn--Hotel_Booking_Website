@@ -1,4 +1,4 @@
-import User from '../models/User.js';
+import User from '../models/user.js';
 import { clerkClient } from '@clerk/express';
 
 // Middleware to check if user is authenticated via Clerk

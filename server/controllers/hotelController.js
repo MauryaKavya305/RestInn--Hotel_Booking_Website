@@ -1,6 +1,6 @@
-import Hotel from "../models/Hotel.js";
-import User from "../models/User.js";
-import Room from "../models/Room.js";
+import Hotel from "../models/hotel.js";
+import User from "../models/user.js";
+import Room from "../models/room.js";
 
 // POST /api/hotels - Register new hotel
 export const registerHotel = async (req, res) => {
