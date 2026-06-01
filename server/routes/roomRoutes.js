@@ -7,7 +7,7 @@ import {
     getOwnerRooms,
     toggleRoomAvailability,
     deleteRoom
-} from "../controllers/RoomController.js";
+} from "../controllers/roomController.js";
 
 const roomRouter = express.Router();
 
