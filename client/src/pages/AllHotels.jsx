@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Star, MapPin, ChevronLeft, ChevronRight, Wifi, Coffee, Wind, Filter, ChevronDown } from 'lucide-react';
-import { allHotels } from '../assets/assets';
+// import { allHotels } from '../assets/assets';
+import axios from 'axios';
 import { Link, useLocation } from 'react-router-dom';
 
 const AllHotels = () => {
@@ -15,17 +16,27 @@ const AllHotels = () => {
   //     )
   //   : allHotels;
 
+  const [rooms, setRooms] = useState([]);
+
   const searchCityOnly = searchedCity
-  ? searchedCity.split(",")[0].trim()
-  : "";
+    ? searchedCity.split(",")[0].trim()
+    : "";
+
+  // const filteredHotels = searchCityOnly
+  //   ? allHotels.filter(
+  //     (hotel) =>
+  //       hotel.city &&
+  //       hotel.city.toLowerCase() === searchCityOnly.toLowerCase()
+  //   )
+  //   : allHotels;
 
   const filteredHotels = searchCityOnly
-    ? allHotels.filter(
-      (hotel) =>
-        hotel.city &&
-        hotel.city.toLowerCase() === searchCityOnly.toLowerCase()
+    ? rooms.filter(
+      (room) =>
+        room.hotel?.city &&
+        room.hotel.city.toLowerCase() === searchCityOnly.toLowerCase()
     )
-    : allHotels;
+    : rooms;
 
   // console.log("searchedCity:", searchedCity);
   // console.log("searchCityOnly:", searchCityOnly);
@@ -33,6 +44,7 @@ const AllHotels = () => {
 
   const [priceRange, setPriceRange] = useState(1000);
   const [currentPage, setCurrentPage] = useState(1);
+  
   const hotelsPerPage = 10;
 
   // Calculate the range of hotels to show
@@ -48,10 +60,28 @@ const AllHotels = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, [currentPage]);
 
+  useEffect(() => {
+    const fetchRooms = async () => {
+      try {
+        const { data } = await axios.get(
+          `${import.meta.env.VITE_BACKEND_URL}/api/rooms`
+        );
+
+        if (data.success) {
+          setRooms(data.rooms);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchRooms();
+  }, []);
+
   return (
     <div className="pt-28 pb-20 bg-gray-50 min-h-screen">
       <div className="container mx-auto px-6">
-        
+
         {/* HEADING */}
         <div className="mb-12">
           <h1 className="text-4xl font-bold text-gray-900 mb-4">All Hotels</h1>
@@ -59,21 +89,37 @@ const AllHotels = () => {
         </div>
 
         <div className="flex flex-col lg:flex-row gap-12">
-          
+
           {/* LEFT: HOTEL LIST (Spacious Cards) */}
           <div className="flex-1 space-y-10"> {/* Increased gap between cards */}
+            <h1 className="text-red-500 text-3xl">
+  Rooms Found: {filteredHotels.length}
+</h1>
             {currentHotels.map((hotel) => (
-              <div 
-                key={hotel.id} 
+              <div
+                // key={hotel.id} 
+                key={hotel._id}
                 className="bg-white rounded-3xl overflow-hidden shadow-sm border border-gray-100 flex flex-col md:flex-row p-6 gap-8 hover:shadow-xl transition-all duration-300"
               >
 
                 {/* 2. WRAP IMAGE IN LINK */}
-                <Link to={`/room/${hotel.id}`} className="w-full md:w-80 h-64 md:h-72 shrink-0 overflow-hidden rounded-2xl block">
-                  <img 
-                    src={hotel.image} 
+                <Link to={`/room/${hotel._id}`} className="w-full md:w-80 h-64 md:h-72 shrink-0 overflow-hidden rounded-2xl block">
+                  {/* <img 
+                    // src={hotel.image} 
+                    src={hotel.images?.[0]}
                     className="w-full h-full object-cover transform hover:scale-105 transition-transform duration-500" 
-                    alt={hotel.name} 
+                    // alt={hotel.name} 
+                    alt={hotel.hotel?.name}
+                  /> */}
+
+                  <img
+                    src={
+                      hotel.images?.length > 0
+                        ? hotel.images[0]
+                        : "https://via.placeholder.com/400x300?text=Room"
+                    }
+                    className="w-full h-full object-cover transform hover:scale-105 transition-transform duration-500"
+                    alt={hotel.hotel?.name}
                   />
                 </Link>
 
@@ -85,12 +131,12 @@ const AllHotels = () => {
                         {/* <h3 className="text-2xl font-bold text-gray-900 mb-2">{hotel.name}</h3> */}
 
                         {/* 3. OPTIONAL: WRAP NAME IN LINK TOO */}
-                        <Link to={`/room/${hotel.id}`}>
-                          <h3 className="text-2xl font-bold text-gray-900 mb-2 hover:text-blue-600 transition">{hotel.name}</h3>
+                        <Link to={`/room/${hotel._id}`}>
+                          <h3 className="text-2xl font-bold text-gray-900 mb-2 hover:text-blue-600 transition">{hotel.hotel?.name}</h3>
                         </Link>
                         <p className="text-gray-500 flex items-center text-base">
-                          <MapPin className="w-4 h-4 mr-2 text-blue-600" /> 
-                          {hotel.city}, {hotel.country}
+                          <MapPin className="w-4 h-4 mr-2 text-blue-600" />
+                          {hotel.hotel?.city}, {hotel.hotel?.country}
                         </p>
                       </div>
                       <div className="flex items-center text-yellow-500 font-bold bg-yellow-50 px-3 py-1.5 rounded-xl border border-yellow-100">
@@ -100,7 +146,7 @@ const AllHotels = () => {
 
                     {/* Spacing out the tags */}
                     <div className="flex flex-wrap gap-3 mt-6">
-                      {hotel.tags.map((tag, index) => (
+                      {hotel.amenities?.map((tag, index) => (
                         <span key={index} className="text-xs font-semibold bg-blue-50 text-blue-700 px-4 py-1.5 rounded-lg">
                           {tag}
                         </span>
@@ -113,13 +159,13 @@ const AllHotels = () => {
                     <div className="flex flex-col">
                       <span className="text-gray-400 text-sm font-medium mb-1">Per Night</span>
                       <div className="flex items-baseline gap-1">
-                        <span className="text-3xl font-black text-blue-600">${hotel.price}</span>
+                        <span className="text-3xl font-black text-blue-600">${hotel.pricePerNight}</span>
                         <span className="text-gray-400 font-medium">/night</span>
                       </div>
                     </div>
 
                     {/* 4. WRAP BUTTON IN LINK */}
-                    <Link to={`/room/${hotel.id}`}>
+                    <Link to={`/room/${hotel._id}`}>
                       <button className="bg-blue-600 text-white px-10 py-4 rounded-2xl font-bold hover:bg-blue-700 transition-all shadow-lg shadow-blue-100 active:scale-95">
                         Book This Room
                       </button>
@@ -133,7 +179,7 @@ const AllHotels = () => {
             <div className="flex justify-center items-center gap-4 mt-16 py-8">
               {/* Previous Button - Hidden on Page 1 */}
               {currentPage > 1 && (
-                <button 
+                <button
                   onClick={() => setCurrentPage(prev => prev - 1)}
                   className="flex items-center gap-2 px-6 py-3 bg-white border border-gray-200 rounded-xl font-bold text-gray-600 hover:bg-gray-50 hover:border-blue-600 hover:text-blue-600 transition-all"
                 >
@@ -156,7 +202,7 @@ const AllHotels = () => {
 
               {/* Next Button - Hidden on Last Page */}
               {currentPage < totalPages && (
-                <button 
+                <button
                   onClick={() => setCurrentPage(prev => prev + 1)}
                   className="flex items-center gap-2 px-6 py-3 bg-white border border-gray-200 rounded-xl font-bold text-gray-600 hover:bg-gray-50 hover:border-blue-600 hover:text-blue-600 transition-all"
                 >
@@ -169,7 +215,7 @@ const AllHotels = () => {
           {/* RIGHT: FILTER SECTION */}
           <aside className="hidden lg:block w-80 shrink-0">
             <div className="sticky top-28 h-fit max-h-[calc(100vh-120px)] overflow-y-auto bg-white p-8 rounded-3xl shadow-sm border border-gray-100 custom-scrollbar">
-    
+
               <div className="flex items-center gap-2 mb-6 pb-4 border-b">
                 <Filter className="w-5 h-5 text-blue-600" />
                 <h2 className="text-xl font-bold text-gray-900">Refine Search</h2>
@@ -191,14 +237,14 @@ const AllHotels = () => {
               {/* Filter 2: Price Range */}
               <div className="mb-8">
                 <h3 className="font-bold text-gray-800 mb-4 text-sm uppercase tracking-wide">Max Price: ${priceRange}</h3>
-                <input 
-                  type="range" 
-                  min="50" 
-                  max="1000" 
+                <input
+                  type="range"
+                  min="50"
+                  max="1000"
                   step="10"
                   value={priceRange}
                   onChange={(e) => setPriceRange(e.target.value)}
-                  className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-blue-600" 
+                  className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-blue-600"
                 />
                 <div className="flex justify-between mt-2 text-xs font-bold text-gray-400">
                   <span>$50</span>

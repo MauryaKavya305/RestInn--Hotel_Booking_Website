@@ -3,6 +3,9 @@ import { allHotels } from '../assets/assets'; // Removed myBookings from assets
 import { MapPin, Users, CreditCard, Calendar, Info } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useBookings } from '../context/BookingContext'; // Import context
+import { useAppContext } from '../context/AppContext';
+import axios from "axios";
+// import { toast } from "react-toastify";
 
 const MyBookings = () => {
   // 1. Pull the dynamic bookings list from your Context Cloud
@@ -10,6 +13,58 @@ const MyBookings = () => {
   
   // 2. Logic to check if we have any dynamic bookings
   const hasBookings = bookings.length > 0;
+
+  // const { backendUrl, token } = useAppContext();
+
+  const { axios, getToken } = useAppContext();
+
+// const handlePayment = async (bookingId) => {
+//   try {
+//     const { data } = await axios.post(
+//       `${backendUrl}/api/bookings/stripe-payment`,
+//       { bookingId },
+//       {
+//         headers: {
+//           Authorization: `Bearer ${token}`
+//         }
+//       }
+//     );
+
+//     if (data.success) {
+//       window.location.href = data.url;
+//     } else {
+//       toast.error(data.message);
+//     }
+//   } catch (error) {
+//     console.log(error);
+//     toast.error("Payment Failed!");
+//   }
+// };
+
+const handlePayment = async (bookingId) => {
+  try {
+    const token = await getToken();
+
+    const { data } = await axios.post(
+      "/api/bookings/stripe-payment",
+      { bookingId },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    if (data.success) {
+      window.location.href = data.url;
+    } else {
+      alert(data.message);
+    }
+  } catch (error) {
+    console.log(error);
+    alert("Payment Failed!");
+  }
+};
 
   return (
     <div className="pt-28 pb-20 bg-gray-50 min-h-screen">
@@ -51,6 +106,8 @@ const MyBookings = () => {
 
             {/* Change myBookings.map to bookings.map (the state from context) */}
             {bookings.map((booking) => {
+              console.log("Booking Object:", booking);
+
               // Find the original hotel details from allHotels using the ID
               const hotel = allHotels.find(h => h.id === booking.hotelId);
               
@@ -113,12 +170,16 @@ const MyBookings = () => {
 
                     {/* Pay Now Button - Triggers only if Unpaid */}
                     {booking.paymentStatus === "Unpaid" && (
-                        <button 
-                          onClick={() => alert("Redirecting to Payment Gateway...")}
+                        // <button 
+                        //   onClick={() => alert("Redirecting to Payment Gateway...")}
+                        //   className="w-full bg-red-500 text-white text-xs py-2.5 rounded-xl font-bold hover:bg-red-600 transition-all shadow-md active:scale-95"
+                        // >
+                        //   Pay Now
+                        // </button>
+
+                        <button onClick={() => handlePayment(booking._id)}
                           className="w-full bg-red-500 text-white text-xs py-2.5 rounded-xl font-bold hover:bg-red-600 transition-all shadow-md active:scale-95"
-                        >
-                          Pay Now
-                        </button>
+                        > Pay Now </button>
                     )}
                   </div>
 

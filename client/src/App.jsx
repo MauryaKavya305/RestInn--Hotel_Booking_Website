@@ -14,6 +14,8 @@ import {Toaster} from "react-hot-toast";
 import { useAuth } from "@clerk/react";
 import { Navigate } from "react-router-dom";
 import AddRoom from './pages/AddRoom';
+import Loader from './components/Loader';
+import { AppProvider } from './context/AppContext';
 
 // 2. Get your Publishable Key from your .env file
 const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
@@ -48,6 +50,8 @@ const AppContent = () => {
         <Route path="/all-hotels" element={<AllHotels />} />
         <Route path="/room/:id" element={<RoomDetails />} />
         <Route path="/my-bookings" element={<MyBookings />} />
+        <Route path="/loader/:nextUrl" element={<Loader />} />
+
         <Route path="/add-hotel" element={<AddHotel />} />
         {/* <Route path="/owner-dashboard" element={<OwnerDashboard />} /> */}
         <Route path="/owner-dashboard"
@@ -68,15 +72,27 @@ const AppContent = () => {
 
 function App() {
   return (
-    <ClerkProvider publishableKey={PUBLISHABLE_KEY} afterSignOutUrl="/">
-      <BookingProvider>
-        <Router>
-          <AppContent />
-        </Router>
-        <Toaster position="top-right" />
-      </BookingProvider>
+    // <ClerkProvider publishableKey={PUBLISHABLE_KEY} afterSignOutUrl="/">
+    //   <BookingProvider>
+    //     <Router>
+    //       <AppContent />
+    //     </Router>
+    //     <Toaster position="top-right" />
+    //   </BookingProvider>
       
+    // </ClerkProvider>
+
+    <ClerkProvider publishableKey={PUBLISHABLE_KEY} afterSignOutUrl="/">
+      <Router>
+        <AppProvider>
+          <BookingProvider>
+            <AppContent />
+            <Toaster position="top-right" />
+          </BookingProvider>
+        </AppProvider>
+      </Router>
     </ClerkProvider>
+    
     // <Router>
     //   <AppContent />
     // </Router>
