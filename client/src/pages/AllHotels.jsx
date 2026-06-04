@@ -30,13 +30,27 @@ const AllHotels = () => {
   //   )
   //   : allHotels;
 
-  const filteredHotels = searchCityOnly
-    ? rooms.filter(
-      (room) =>
-        room.hotel?.city &&
-        room.hotel.city.toLowerCase() === searchCityOnly.toLowerCase()
-    )
-    : rooms;
+  // const filteredHotels = searchCityOnly
+  //   ? rooms.filter(
+  //     (room) =>
+  //       room.hotel?.city &&
+  //       room.hotel.city.toLowerCase() === searchCityOnly.toLowerCase()
+  //   )
+  //   : rooms;
+
+  const filteredHotels = rooms;
+
+  // console.log("Rooms state:", rooms);
+  // console.log("Rooms count:", rooms.length);
+
+  // if (rooms.length > 0) {
+  //   console.log("First room:", rooms[0]);
+  //   console.log("Hotel city:", rooms[0].hotel?.city);
+  // }
+
+  // console.log("searchedCity:", searchedCity);
+  // console.log("searchCityOnly:", searchCityOnly);
+  // console.log("Filtered count:", filteredHotels.length);
 
   // console.log("searchedCity:", searchedCity);
   // console.log("searchCityOnly:", searchCityOnly);
@@ -44,7 +58,7 @@ const AllHotels = () => {
 
   const [priceRange, setPriceRange] = useState(1000);
   const [currentPage, setCurrentPage] = useState(1);
-  
+
   const hotelsPerPage = 10;
 
   // Calculate the range of hotels to show
@@ -66,6 +80,8 @@ const AllHotels = () => {
         const { data } = await axios.get(
           `${import.meta.env.VITE_BACKEND_URL}/api/rooms`
         );
+
+        console.log("API RESPONSE:", data);
 
         if (data.success) {
           setRooms(data.rooms);
@@ -93,8 +109,8 @@ const AllHotels = () => {
           {/* LEFT: HOTEL LIST (Spacious Cards) */}
           <div className="flex-1 space-y-10"> {/* Increased gap between cards */}
             <h1 className="text-red-500 text-3xl">
-  Rooms Found: {filteredHotels.length}
-</h1>
+              Rooms Found: {filteredHotels.length}
+            </h1>
             {currentHotels.map((hotel) => (
               <div
                 // key={hotel.id} 

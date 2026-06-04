@@ -39,17 +39,57 @@ if (req.files && req.files.length > 0) {
 
 // GET /api/rooms
 export const getRooms = async (req, res) => {
+    // console.log("GET ROOMS API HIT");
     try {
-        const rooms = await Room.find({ isAvailable: true })
+        // const rooms = await Room.find({ isAvailable: true })
+         const rooms = await Room.find({})
             .populate({
                 path: 'hotel',
                 populate: { path: 'owner', select: 'image' }
             })
             .sort({ createdAt: -1 });
 
+        // console.log("ROOMS FOUND IN DB:", rooms.length);
+        console.log("ROOMS FOUND IN DB:", rooms.length);
+
+if (rooms.length > 0) {
+    console.log("FIRST ROOM:", JSON.stringify(rooms[0], null, 2));
+}
+
         res.json({ success: true, rooms });
     } catch (error) {
         res.json({ success: false, message: error.message });
+    }
+};
+
+export const getRoomById = async (req, res) => {
+    try {
+        const room = await Room.findById(req.params.id)
+            .populate({
+                path: "hotel",
+                populate: {
+                    path: "owner",
+                    select: "image"
+                }
+            });
+
+        if (!room) {
+            return res.json({
+                success: false,
+                message: "Room not found"
+            });
+        }
+
+        res.json({
+            success: true,
+            room
+        });
+
+    } catch (error) {
+        res.json({
+            success: false,
+            message: error.message
+        });
     }
 };
 
