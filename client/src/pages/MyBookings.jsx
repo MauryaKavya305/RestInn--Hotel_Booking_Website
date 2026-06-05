@@ -1,80 +1,86 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { allHotels } from '../assets/assets'; // Removed myBookings from assets
 import { MapPin, Users, CreditCard, Calendar, Info } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { useBookings } from '../context/BookingContext'; // Import context
+// import { useBookings } from '../context/BookingContext'; // Import context
 import { useAppContext } from '../context/AppContext';
 import axios from "axios";
 // import { toast } from "react-toastify";
 
 const MyBookings = () => {
-  // 1. Pull the dynamic bookings list from your Context Cloud
-  const { bookings } = useBookings(); 
-  
-  // 2. Logic to check if we have any dynamic bookings
+  const [bookings, setBookings] = useState([]);
+
   const hasBookings = bookings.length > 0;
-
-  // const { backendUrl, token } = useAppContext();
-
   const { axios, getToken } = useAppContext();
+  useEffect(() => {
+    fetchBookings();
+  }, []);
 
-// const handlePayment = async (bookingId) => {
-//   try {
-//     const { data } = await axios.post(
-//       `${backendUrl}/api/bookings/stripe-payment`,
-//       { bookingId },
-//       {
-//         headers: {
-//           Authorization: `Bearer ${token}`
-//         }
-//       }
-//     );
+  const fetchBookings = async () => {
+    try {
+      const token = await getToken();
 
-//     if (data.success) {
-//       window.location.href = data.url;
-//     } else {
-//       toast.error(data.message);
-//     }
-//   } catch (error) {
-//     console.log(error);
-//     toast.error("Payment Failed!");
-//   }
-// };
+      const { data } = await axios.get(
+        "/api/bookings/user",
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
-const handlePayment = async (bookingId) => {
-  try {
-    const token = await getToken();
+      console.log("USER BOOKINGS:", data);
 
-    const { data } = await axios.post(
-      "/api/bookings/stripe-payment",
-      { bookingId },
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+      if (data.success) {
+        setBookings(data.bookings);
       }
-    );
-
-    if (data.success) {
-      window.location.href = data.url;
-    } else {
-      alert(data.message);
+    } catch (error) {
+      console.log(error);
     }
-  } catch (error) {
-    console.log(error);
-    alert("Payment Failed!");
-  }
-};
+  };
+
+  const handlePayment = async (bookingId) => {
+    try {
+      const token = await getToken();
+
+      const { data } = await axios.post(
+        "/api/bookings/stripe-payment",
+        { bookingId },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (data.success) {
+        window.location.href = data.url;
+      } else {
+        alert(data.message);
+      }
+    } catch (error) {
+      // console.log(error);
+      // alert("Payment Failed!");
+      console.log("PAYMENT ERROR:", error);
+      console.log("RESPONSE:", error.response?.data);
+
+      alert(
+        error.response?.data?.message ||
+        error.message ||
+        "Payment Failed!"
+      );
+    }
+  };
 
   return (
     <div className="pt-28 pb-20 bg-gray-50 min-h-screen">
       <div className="container mx-auto px-6">
-        
+
         {/* HEADING & DESCRIPTION */}
         <div className="mb-12">
           <h1 className="text-4xl font-bold text-gray-900 mb-4">My Bookings</h1>
           <p className="text-gray-500 text-lg max-w-2xl leading-relaxed">
-            Welcome to your personal travel hub. Here, you can keep track of your upcoming stays, 
+            Welcome to your personal travel hub. Here, you can keep track of your upcoming stays,
             verify check-in details, and monitor your payment status to ensure a stress-free trip.
           </p>
         </div>
@@ -106,23 +112,30 @@ const handlePayment = async (bookingId) => {
 
             {/* Change myBookings.map to bookings.map (the state from context) */}
             {bookings.map((booking) => {
-              console.log("Booking Object:", booking);
+              //  console.log("Booking Object:", booking);
 
               // Find the original hotel details from allHotels using the ID
-              const hotel = allHotels.find(h => h.id === booking.hotelId);
-              
+              //  const hotel = allHotels.find(h => h.id === booking.hotelId);
+              const hotel = booking.hotel;
+              const room = booking.room;
+
               return (
-                <div key={booking.id} className="bg-white rounded-3xl p-6 shadow-sm border border-gray-100 flex flex-col lg:grid lg:grid-cols-6 gap-8 items-center hover:border-blue-200 transition-colors">
-                  
+                <div key={booking._id} className="bg-white rounded-3xl p-6 shadow-sm border border-gray-100 flex flex-col lg:grid lg:grid-cols-6 gap-8 items-center hover:border-blue-200 transition-colors">
+
                   {/* SECTION 1: HOTELS */}
                   <div className="col-span-3 flex flex-col md:flex-row gap-6 w-full">
-                    <img 
-                      src={hotel?.image || booking.image} 
-                      className="w-full md:w-40 h-32 object-cover rounded-2xl shrink-0" 
-                      alt={hotel?.name} 
+                    <img
+                      //  src={hotel?.image || booking.image}
+                      src={
+                        room?.images?.length > 0
+                          ? room.images[0]
+                          : "https://via.placeholder.com/300x200?text=Room"
+                      }
+                      className="w-full md:w-40 h-32 object-cover rounded-2xl shrink-0"
+                      alt={hotel?.name}
                     />
                     <div className="flex flex-col justify-center">
-                      <h3 className="text-xl font-bold text-gray-900 mb-1">{hotel?.name || booking.name}</h3>
+                      <h3 className="text-xl font-bold text-gray-900 mb-1">{hotel?.name}</h3>
                       <p className="text-gray-500 flex items-center text-sm mb-3">
                         <MapPin size={14} className="mr-1 text-blue-600" /> {hotel?.city}, {hotel?.country}
                       </p>
@@ -131,7 +144,7 @@ const handlePayment = async (bookingId) => {
                           <Users size={14} /> {booking.guests} Guests
                         </span>
                         <span className="text-xs font-bold text-gray-400 flex items-center gap-1">
-                          <CreditCard size={14} /> Total: ${booking.price || booking.totalPayment}
+                          <CreditCard size={14} /> Total: ${booking.totalPrice}
                         </span>
                       </div>
                     </div>
@@ -142,44 +155,35 @@ const handlePayment = async (bookingId) => {
                     <div className="flex flex-col">
                       <span className="text-[10px] font-black text-blue-600 uppercase tracking-tighter mb-1">Check In</span>
                       <p className="font-bold text-gray-700 flex items-center gap-2">
-                         <Calendar size={16} className="text-gray-300" /> {booking.checkIn}
+                        <Calendar size={16} className="text-gray-300" /> {new Date(booking.checkInDate).toLocaleDateString()}
                       </p>
                     </div>
                     <div className="flex flex-col">
                       <span className="text-[10px] font-black text-red-400 uppercase tracking-tighter mb-1">Check Out</span>
                       <p className="font-bold text-gray-700 flex items-center gap-2">
-                         <Calendar size={16} className="text-gray-300" /> {booking.checkOut}
+                        <Calendar size={16} className="text-gray-300" /> {new Date(booking.checkOutDate).toLocaleDateString()}
                       </p>
                     </div>
                   </div>
 
                   {/* SECTION 3: PAYMENT STATUS */}
                   <div className="col-span-1 flex flex-col items-center w-full gap-3">
-                    
+
                     {/* The Status Indicator */}
-                    <div className={`w-full flex items-center justify-center gap-2 px-4 py-2 rounded-full font-bold text-sm ${
-                      booking.paymentStatus === "Paid" 
-                      ? "bg-green-50 text-green-600" 
+                    <div className={`w-full flex items-center justify-center gap-2 px-4 py-2 rounded-full font-bold text-sm ${booking.isPaid
+                      ? "bg-green-50 text-green-600"
                       : "bg-red-50 text-red-600"
-                    }`}>
-                      <span className={`w-2.5 h-2.5 rounded-full ${
-                        booking.paymentStatus === "Paid" ? "bg-green-500" : "bg-red-500"
-                      }`}></span>
-                      {booking.paymentStatus}
+                      }`}>
+                      <span className={`w-2.5 h-2.5 rounded-full ${booking.isPaid ? "bg-green-500" : "bg-red-500"
+                        }`}></span>
+                      {booking.isPaid ? "Paid" : "Unpaid"}
                     </div>
 
                     {/* Pay Now Button - Triggers only if Unpaid */}
-                    {booking.paymentStatus === "Unpaid" && (
-                        // <button 
-                        //   onClick={() => alert("Redirecting to Payment Gateway...")}
-                        //   className="w-full bg-red-500 text-white text-xs py-2.5 rounded-xl font-bold hover:bg-red-600 transition-all shadow-md active:scale-95"
-                        // >
-                        //   Pay Now
-                        // </button>
-
-                        <button onClick={() => handlePayment(booking._id)}
-                          className="w-full bg-red-500 text-white text-xs py-2.5 rounded-xl font-bold hover:bg-red-600 transition-all shadow-md active:scale-95"
-                        > Pay Now </button>
+                    {!booking.isPaid && (
+                      <button onClick={() => handlePayment(booking._id)}
+                        className="w-full bg-red-500 text-white text-xs py-2.5 rounded-xl font-bold hover:bg-red-600 transition-all shadow-md active:scale-95"
+                      > Pay Now </button>
                     )}
                   </div>
 

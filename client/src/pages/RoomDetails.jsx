@@ -3,12 +3,15 @@ import { useParams, useNavigate } from 'react-router-dom'; // Added useNavigate
 // import { allHotels, hotelDetails } from '../assets/assets';
 import { Star, MapPin, Users, Calendar, CheckCircle2, Zap, ShieldCheck } from 'lucide-react';
 // import { useBookings } from '../context/BookingContext';
-import axios from 'axios';
+// import axios from 'axios';
+import { useAppContext } from '../context/AppContext';
 
 const RoomDetails = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   // const { addBooking } = useBookings();
+
+  const { axios, getToken } = useAppContext();
 
   // --- 1. NEW STATE FOR FORM & AVAILABILITY ---
   const [dates, setDates] = useState({ checkIn: '', checkOut: '', guests: 1 });
@@ -66,29 +69,37 @@ const RoomDetails = () => {
     }
   };
 
-  // const handleBookNow = () => {
-  //   // Create the booking object
-  //   const newBooking = {
-  //     id: Date.now(), // Unique ID
-  //     hotelId: basicInfo.id,
-  //     name: basicInfo.name,
-  //     image: basicInfo.image,
-  //     city: basicInfo.city,
-  //     price: basicInfo.price,
-  //     checkIn: dates.checkIn,
-  //     checkOut: dates.checkOut,
-  //     guests: dates.guests,
-  //     paymentStatus: "Unpaid" // Default status
-  //   };
+  const handleBookNow = async () => {
+    try {
+      const token = await getToken();
 
-  //   addBooking(newBooking); // Save to context
-  //   navigate('/my-bookings');
-  // };
+      const { data } = await axios.post(
+        "/api/bookings/book",
+        {
+          room: room._id,
+          checkInDate: dates.checkIn,
+          checkOutDate: dates.checkOut,
+          guests: dates.guests,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
-  const handleBookNow = () => {
-    console.log("Room selected:", room);
+      console.log("BOOKING RESPONSE:", data);
 
-    navigate('/my-bookings');
+      if (data.success) {
+        alert("Booking Created Successfully");
+        navigate("/my-bookings");
+      } else {
+        alert(data.message);
+      }
+    } catch (error) {
+      console.log(error);
+      alert("Booking Failed");
+    }
   };
 
   return (

@@ -38,7 +38,21 @@ const AllHotels = () => {
   //   )
   //   : rooms;
 
-  const filteredHotels = rooms;
+  // const filteredHotels = rooms;
+  console.log("searchedCity:", searchedCity);
+
+rooms.forEach(room => {
+  console.log("DB city:", room.hotel?.city);
+});
+
+  const filteredHotels = rooms.filter((room) => {
+  if (!searchedCity) return true;
+
+  return (
+    room.hotel?.city?.toLowerCase() ===
+    searchedCity.toLowerCase()
+  );
+});
 
   // console.log("Rooms state:", rooms);
   // console.log("Rooms count:", rooms.length);

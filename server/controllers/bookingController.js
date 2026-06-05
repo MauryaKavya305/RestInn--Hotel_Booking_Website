@@ -33,6 +33,8 @@ export const checkAvailabilityAPI = async (req, res) => {
 
 // POST /api/bookings/book
 export const createBooking = async (req, res) => {
+    console.log("BOOKING API HIT");
+    console.log(req.body);
     try {
         const { room, checkInDate, checkOutDate, guests } = req.body;
         const user = req.user._id;
@@ -50,7 +52,7 @@ export const createBooking = async (req, res) => {
         const nights = Math.ceil((checkOut - checkIn) / (1000 * 3600 * 24));
         const totalPrice = roomData.pricePerNight * nights;
 
-        await Booking.create({
+        const booking = await Booking.create({
             user,
             room,
             hotel: roomData.hotel._id,
@@ -79,7 +81,7 @@ export const createBooking = async (req, res) => {
             <p> If you need to make any changes, then feel free to contact us. </p>`
         }
 
-        await transporter.sendMail();
+        await transporter.sendMail(mailOptions);
 
         res.json({ success: true, message: "Booking created successfully" });
     } catch (error) {
@@ -125,14 +127,21 @@ export const getHotelBookings = async (req, res) => {
 
 
 export const stripePayment = async (req, res) => {
+    console.log("STRIPE PAYMENT API HIT");
+    console.log(req.body);
+
     try {
-        const {bookingId} = req.body;
+        const { bookingId } = req.body;
         const booking = await Booking.findById(bookingId);
+        console.log("BOOKING:", booking);
 
         const roomData = await Room.findById(booking.room).populate("hotel");
+        console.log("ROOM DATA:", roomData);
+        console.log("STRIPE KEY:", process.env.STRIPE_SECRET_KEY);
         const totalPrice = booking.totalPrice;
 
         const { origin } = req.headers;
+        console.log("ORIGIN:", origin);
 
         const stripeInstance = new stripe(process.env.STRIPE_SECRET_KEY);
 
@@ -146,21 +155,53 @@ export const stripePayment = async (req, res) => {
                     unit_amount: totalPrice * 100
                 },
                 quantity: 1,
-            }
+            },
         ]
 
         // create checkOut Session
         const session = await stripeInstance.checkout.sessions.create({
             line_items,
             mode: 'payment',
-            success_url: `${origin}/loader/my-bookings`,
+            success_url: `${origin}/loader/${booking._id}`,
             cancel_url: `${origin}/my-bookings`,
             metadata: {
-                bookingId: booking._id,
-            }
-        })
+                bookingId: booking._id.toString(),
+            },
+        });
+        console.log("SESSION CREATED:", session.url);
+        console.log("SESSION SUCCESS URL:", session.success_url);
+
         res.json({ success: true, url: session.url })
     } catch (error) {
-        res.json({ success: false, message: "Payment Failed!" });
+        console.log("STRIPE ERROR:");
+        console.log(error);
+        res.json({ success: false, message: error.message });
     }
 }
+
+export const verifyPayment = async (req, res) => {
+    try {
+        const { bookingId } = req.body;
+
+        await Booking.findByIdAndUpdate(
+            bookingId,
+            {
+                isPaid: true,
+                status: "confirmed",
+            }
+        );
+
+        res.json({
+            success: true,
+            message: "Payment verified",
+        });
+
+    } catch (error) {
+        console.log(error);
+
+        res.json({
+            success: false,
+            message: error.message,
+        });
+    }
+};
