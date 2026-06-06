@@ -110,12 +110,7 @@ const MyBookings = () => {
               <div className="col-span-1 text-center">Payment Status</div>
             </div>
 
-            {/* Change myBookings.map to bookings.map (the state from context) */}
             {bookings.map((booking) => {
-              //  console.log("Booking Object:", booking);
-
-              // Find the original hotel details from allHotels using the ID
-              //  const hotel = allHotels.find(h => h.id === booking.hotelId);
               const hotel = booking.hotel;
               const room = booking.room;
 

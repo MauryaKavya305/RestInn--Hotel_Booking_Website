@@ -162,7 +162,7 @@ export const stripePayment = async (req, res) => {
         const session = await stripeInstance.checkout.sessions.create({
             line_items,
             mode: 'payment',
-            success_url: `${origin}/loader/${booking._id}`,
+            success_url: `${origin}/loader/payment-success/${booking._id}`,
             cancel_url: `${origin}/my-bookings`,
             metadata: {
                 bookingId: booking._id.toString(),
@@ -188,6 +188,7 @@ export const verifyPayment = async (req, res) => {
             {
                 isPaid: true,
                 status: "confirmed",
+                paymentMethod: "Stripe",
             }
         );
 

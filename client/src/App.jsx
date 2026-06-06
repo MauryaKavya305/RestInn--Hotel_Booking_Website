@@ -50,10 +50,9 @@ const AppContent = () => {
         <Route path="/all-hotels" element={<AllHotels />} />
         <Route path="/room/:id" element={<RoomDetails />} />
         <Route path="/my-bookings" element={<MyBookings />} />
-        <Route path="/loader/:nextUrl" element={<Loader />} />
+        <Route path="/loader/:nextUrl/:bookingId" element={<Loader />} />
 
         <Route path="/add-hotel" element={<AddHotel />} />
-        {/* <Route path="/owner-dashboard" element={<OwnerDashboard />} /> */}
         <Route path="/owner-dashboard"
           element={
             <ProtectedRoute>
@@ -72,15 +71,6 @@ const AppContent = () => {
 
 function App() {
   return (
-    // <ClerkProvider publishableKey={PUBLISHABLE_KEY} afterSignOutUrl="/">
-    //   <BookingProvider>
-    //     <Router>
-    //       <AppContent />
-    //     </Router>
-    //     <Toaster position="top-right" />
-    //   </BookingProvider>
-      
-    // </ClerkProvider>
 
     <ClerkProvider publishableKey={PUBLISHABLE_KEY} afterSignOutUrl="/">
       <Router>
@@ -92,10 +82,6 @@ function App() {
         </AppProvider>
       </Router>
     </ClerkProvider>
-    
-    // <Router>
-    //   <AppContent />
-    // </Router>
   );
 }
 

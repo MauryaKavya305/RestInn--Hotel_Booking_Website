@@ -1,93 +1,55 @@
-// import React from 'react';
-// import { useEffect } from 'react';
-// import { useAppContext } from '../context/AppContext';
-// import { useParams } from 'react-router-dom';
-// import axios from "axios";
-
-// const Loader = () => {
-//     const { navigate } = useAppContext();
-//     const { nextUrl } = useParams();
-
-//     // useEffect(() => {
-//     //     if(nextUrl) {
-//     //         setTimeout(() => {
-//     //             navigate(`/${nextUrl}`);
-//     //         }, 6000)
-//     //     }
-//     // }, [nextUrl]);
-
-//     useEffect(() => {
-//   const verifyBooking = async () => {
-//     try {
-//       const token = localStorage.getItem("token");
-
-//       await axios.post(
-//         "/api/bookings/verify-payment",
-//         {
-//           bookingId: nextUrl,
-//         },
-//         {
-//           headers: {
-//             Authorization: `Bearer ${token}`,
-//           },
-//         }
-//       );
-
-//       navigate("/my-bookings");
-
-//     } catch (error) {
-//       console.log(error);
-//       navigate("/my-bookings");
-//     }
-//   };
-
-//   if (nextUrl) {
-//     verifyBooking();
-//   }
-// }, [nextUrl]);
-
-//     return (
-//         <div className="flex justify-center items-center h-screen">
-//             <div className="animate-spin rounded-full h-26 w-26 border-4 border-gray-400 border-t-primary">
-
-//             </div>
-
-//         </div>
-
-//     )
-// }
-
-// export default Loader;
-
 import React, { useEffect, useState } from "react";
 import { CheckCircle2 } from "lucide-react";
 import { useAppContext } from "../context/AppContext";
 import { useParams } from "react-router-dom";
+import axios from "axios";
 
 const Loader = () => {
-  const { navigate } = useAppContext();
-  const { nextUrl } = useParams();
-  console.log("LOADER nextUrl:", nextUrl);
+  const { navigate, axios, getToken } = useAppContext();
+  const { nextUrl, bookingId } = useParams();
+  // console.log("LOADER nextUrl:", nextUrl);
   useEffect(() => {
-  console.log("Navigating to:", `/${nextUrl}`);
-}, [nextUrl]);
+    console.log("Navigating to:", `/${nextUrl}`);
+  }, [nextUrl]);
 
   const [completed, setCompleted] = useState(false);
 
   useEffect(() => {
+    const verifyBooking = async () => {
+      try {
+         const token = await getToken();
+
+         const { data } = await axios.post(
+          "/api/bookings/verify-payment",
+          { bookingId },
+          {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+        );
+
+        console.log("VERIFY PAYMENT:", data);
+      } catch (error) {
+        console.log("VERIFY PAYMENT ERROR:", error);
+      }
+    };
+
+    verifyBooking();
+
     const successTimer = setTimeout(() => {
       setCompleted(true);
     }, 4000);
 
     const redirectTimer = setTimeout(() => {
-      navigate(`/${nextUrl}`);
+      navigate("/my-bookings");
     }, 6500);
 
     return () => {
       clearTimeout(successTimer);
       clearTimeout(redirectTimer);
     };
-  }, [nextUrl]);
+  }, [bookingId]);
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 via-white to-green-50 px-6">

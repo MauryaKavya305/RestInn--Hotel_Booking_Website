@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { Star, MapPin, ChevronLeft, ChevronRight, Wifi, Coffee, Wind, Filter, ChevronDown } from 'lucide-react';
-// import { allHotels } from '../assets/assets';
 import axios from 'axios';
 import { Link, useLocation } from 'react-router-dom';
 
@@ -10,36 +9,13 @@ const AllHotels = () => {
   const queryParams = new URLSearchParams(location.search);
   const searchedCity = queryParams.get("city");
 
-  // const filteredHotels = searchedCity
-  //   ? allHotels.filter((hotel) =>
-  //       hotel.city.toLowerCase().includes(searchedCity.toLowerCase())
-  //     )
-  //   : allHotels;
-
   const [rooms, setRooms] = useState([]);
 
   const searchCityOnly = searchedCity
     ? searchedCity.split(",")[0].trim()
     : "";
 
-  // const filteredHotels = searchCityOnly
-  //   ? allHotels.filter(
-  //     (hotel) =>
-  //       hotel.city &&
-  //       hotel.city.toLowerCase() === searchCityOnly.toLowerCase()
-  //   )
-  //   : allHotels;
-
-  // const filteredHotels = searchCityOnly
-  //   ? rooms.filter(
-  //     (room) =>
-  //       room.hotel?.city &&
-  //       room.hotel.city.toLowerCase() === searchCityOnly.toLowerCase()
-  //   )
-  //   : rooms;
-
-  // const filteredHotels = rooms;
-  console.log("searchedCity:", searchedCity);
+  // console.log("searchedCity:", searchedCity);
 
 rooms.forEach(room => {
   console.log("DB city:", room.hotel?.city);
@@ -53,22 +29,6 @@ rooms.forEach(room => {
     searchedCity.toLowerCase()
   );
 });
-
-  // console.log("Rooms state:", rooms);
-  // console.log("Rooms count:", rooms.length);
-
-  // if (rooms.length > 0) {
-  //   console.log("First room:", rooms[0]);
-  //   console.log("Hotel city:", rooms[0].hotel?.city);
-  // }
-
-  // console.log("searchedCity:", searchedCity);
-  // console.log("searchCityOnly:", searchCityOnly);
-  // console.log("Filtered count:", filteredHotels.length);
-
-  // console.log("searchedCity:", searchedCity);
-  // console.log("searchCityOnly:", searchCityOnly);
-  // console.log("filteredHotels:", filteredHotels);
 
   const [priceRange, setPriceRange] = useState(1000);
   const [currentPage, setCurrentPage] = useState(1);
@@ -134,14 +94,6 @@ rooms.forEach(room => {
 
                 {/* 2. WRAP IMAGE IN LINK */}
                 <Link to={`/room/${hotel._id}`} className="w-full md:w-80 h-64 md:h-72 shrink-0 overflow-hidden rounded-2xl block">
-                  {/* <img 
-                    // src={hotel.image} 
-                    src={hotel.images?.[0]}
-                    className="w-full h-full object-cover transform hover:scale-105 transition-transform duration-500" 
-                    // alt={hotel.name} 
-                    alt={hotel.hotel?.name}
-                  /> */}
-
                   <img
                     src={
                       hotel.images?.length > 0

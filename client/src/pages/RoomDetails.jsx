@@ -1,24 +1,17 @@
 import React, { useState, useEffect } from 'react'; // Added useState
 import { useParams, useNavigate } from 'react-router-dom'; // Added useNavigate
-// import { allHotels, hotelDetails } from '../assets/assets';
 import { Star, MapPin, Users, Calendar, CheckCircle2, Zap, ShieldCheck } from 'lucide-react';
-// import { useBookings } from '../context/BookingContext';
-// import axios from 'axios';
 import { useAppContext } from '../context/AppContext';
 
 const RoomDetails = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  // const { addBooking } = useBookings();
 
   const { axios, getToken } = useAppContext();
 
   // --- 1. NEW STATE FOR FORM & AVAILABILITY ---
   const [dates, setDates] = useState({ checkIn: '', checkOut: '', guests: 1 });
   const [isAvailable, setIsAvailable] = useState(false);
-
-  // const basicInfo = allHotels.find(h => h.id === parseInt(id));
-  // const details = hotelDetails.find(d => d.id === parseInt(id));
 
   const [room, setRoom] = useState(null);
 
@@ -38,9 +31,7 @@ const RoomDetails = () => {
     }
   };
 
-  // if (!basicInfo || !details) {
-  //   return <div className="pt-40 text-center text-xl font-bold">Hotel data not found...</div>;
-  // }
+ 
 
   if (!room) {
     return (
@@ -109,30 +100,11 @@ const RoomDetails = () => {
         {/* HEADING & DISCOUNT */}
         <div className="flex items-center gap-4 mb-2">
           <h1 className="text-4xl font-bold text-gray-900"> {room.hotel.name}</h1>
-          {/* <button onClick={() => navigate('/add-room')}
-              className="bg-blue-600 text-white px-5 py-3 rounded-xl font-bold hover:bg-blue-700 transition"
-            >
-            + Create New Room
-            </button> */}
 
           <span className="bg-red-100 text-red-600 px-3 py-1 rounded-full text-sm font-bold">
             {room.roomType}% OFF
           </span>
         </div>
-
-        {/* RATINGS & REVIEW COUNT */}
-        {/* <div className="flex items-center gap-4 mb-4">
-          <div className="flex items-center text-yellow-500 font-bold">
-            {[...Array(5)].map((_, i) => (
-              <Star key={i} size={18} className={i < Math.floor(basicInfo.rating) ? "fill-current" : "text-gray-300"} />
-            ))}
-            <span className="ml-2 text-gray-900">{basicInfo.rating}</span>
-          </div>
-          <span className="text-gray-400 text-sm font-medium">|</span>
-          <span className="text-gray-500 underline decoration-dotted underline-offset-4">
-            {details.reviewCount} reviews
-          </span>
-        </div> */}
 
         <div className="flex items-center gap-4 mb-4">
           <span className="text-gray-600 font-medium">
@@ -155,14 +127,6 @@ const RoomDetails = () => {
                 : "https://via.placeholder.com/800x500?text=Room+Image"
             } className="w-full h-full object-cover" alt="Main" />
           </div>
-
-          {/* <div className="grid grid-cols-2 gap-4 h-[500px]">
-            {details.extraImages.map((img, idx) => (
-              <div key={idx} className="overflow-hidden rounded-2xl shadow-sm">
-                <img src={img} className="w-full h-full object-cover hover:scale-110 transition duration-500" alt="Detail" />
-              </div>
-            ))}
-          </div> */}
 
           {room.images?.slice(1).map((img, idx) => (
             <div key={idx} className="overflow-hidden rounded-2xl shadow-sm">
