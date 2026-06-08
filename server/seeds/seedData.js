@@ -1,3 +1,12 @@
+import dotenv from "dotenv";
+import connectDB from "../configs/db.js";
+import Hotel from "../models/Hotel.js";
+import Room from "../models/Room.js";
+
+dotenv.config();
+
+const OWNER_ID = "user_3C4szwK2zTNy0x9f5UTUC89565k";
+
 const hotels = [
   {
     name: "The Taj Mahal Palace",
@@ -200,3 +209,67 @@ const hotels = [
     country: "India",
   },
 ];
+
+const seedData = async () => {
+  try {
+    await connectDB();
+  // console.log(`Hotels to create: ${hotels.length}`);
+
+    console.log("Connected to MongoDB");
+
+    // DELETE AFTER CONNECTION
+    await Room.deleteMany({});
+    await Hotel.deleteMany({});
+
+    console.log("Old data removed");
+
+    for (const hotelData of hotels) {
+
+      const hotel = await Hotel.create({
+        ...hotelData,
+        contact: "+91-9999999999",
+        owner: OWNER_ID,
+      });
+
+      const basePrice = Math.floor(Math.random() * 6000) + 2500;
+
+      await Room.create([
+        {
+          hotel: hotel._id,
+          roomType: "Standard Room",
+          pricePerNight: basePrice,
+          amenities: ["WiFi", "AC", "TV"],
+          images: [],
+        },
+        {
+          hotel: hotel._id,
+          roomType: "Deluxe Room",
+          pricePerNight: basePrice + 3000,
+          amenities: ["WiFi", "AC", "TV", "Breakfast"],
+          images: [],
+        },
+        {
+          hotel: hotel._id,
+          roomType: "Executive Suite",
+          pricePerNight: basePrice + 6000,
+          amenities: ["WiFi", "AC", "TV", "Breakfast", "Pool", "Spa"],
+          images: [],
+        },
+      ]);
+
+      console.log(`Created: ${hotel.name}`);
+    }
+
+    console.log("Seeding completed successfully");
+    process.exit(0);
+
+  } catch (error) {
+    console.error(error);
+    process.exit(1);
+  }
+};
+
+// await Room.deleteMany({});
+// await Hotel.deleteMany({});
+
+seedData();

@@ -93,6 +93,27 @@ export const getRoomById = async (req, res) => {
     }
 };
 
+export const getRoomsByHotel = async (req, res) => {
+    try {
+        const { hotelId } = req.params;
+
+        const rooms = await Room.find({
+            hotel: hotelId
+        }).populate("hotel");
+
+        res.json({
+            success: true,
+            rooms
+        });
+
+    } catch (error) {
+        res.json({
+            success: false,
+            message: error.message
+        });
+    }
+};
+
 // GET /api/rooms/owner
 export const getOwnerRooms = async (req, res) => {
     try {

@@ -92,3 +92,58 @@ export const deleteHotel = async (req, res) => {
         res.json({ success: false, message: error.message });
     }
 };
+
+// export const getAllHotels = async (req, res) => {
+//     try {
+//         const hotels = await Hotel.find();
+
+//         console.log(hotels);
+
+//         res.json({
+//             success: true,
+//             hotels,
+//         });
+//     } catch (error) {
+//         res.json({
+//             success: false,
+//             message: error.message,
+//         });
+//     }
+// };
+
+export const getAllHotels = async (req, res) => {
+  try {
+
+    const hotels = await Hotel.find();
+
+    const hotelsWithPrices = await Promise.all(
+      hotels.map(async (hotel) => {
+
+        const rooms = await Room.find({
+          hotel: hotel._id
+        });
+
+        const startingPrice =
+          rooms.length > 0
+            ? Math.min(...rooms.map(room => room.pricePerNight))
+            : 0;
+
+        return {
+          ...hotel.toObject(),
+          startingPrice,
+        };
+      })
+    );
+
+    res.json({
+      success: true,
+      hotels: hotelsWithPrices,
+    });
+
+  } catch (error) {
+    res.json({
+      success: false,
+      message: error.message,
+    });
+  }
+};

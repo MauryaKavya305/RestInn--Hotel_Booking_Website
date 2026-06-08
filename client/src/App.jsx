@@ -16,6 +16,7 @@ import { Navigate } from "react-router-dom";
 import AddRoom from './pages/AddRoom';
 import Loader from './components/Loader';
 import { AppProvider } from './context/AppContext';
+import HotelDetails from "./pages/HotelDetails";
 
 // 2. Get your Publishable Key from your .env file
 const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
@@ -48,6 +49,7 @@ const AppContent = () => {
         {/* 2. Home only renders once here */}
         <Route path="/" element={ <Home /> } />
         <Route path="/all-hotels" element={<AllHotels />} />
+        <Route path="/hotel/:hotelId" element={<HotelDetails />} />
         <Route path="/room/:id" element={<RoomDetails />} />
         <Route path="/my-bookings" element={<MyBookings />} />
         <Route path="/loader/:nextUrl/:bookingId" element={<Loader />} />

@@ -9,31 +9,53 @@ const AllHotels = () => {
   const queryParams = new URLSearchParams(location.search);
   const searchedCity = queryParams.get("city");
 
-  const [rooms, setRooms] = useState([]);
+  // const [rooms, setRooms] = useState([]);
+  const [hotels, setHotels] = useState([]);
+
+  const [priceRange, setPriceRange] = useState(20000);
+  const [sortBy, setSortBy] = useState("featured");
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const hotelsPerPage = 10;
 
   const searchCityOnly = searchedCity
     ? searchedCity.split(",")[0].trim()
     : "";
 
-  // console.log("searchedCity:", searchedCity);
+  // const filteredHotels = hotels.filter((hotel) => {
+  //   if (!searchedCity) return true;
 
-rooms.forEach(room => {
-  console.log("DB city:", room.hotel?.city);
-});
+  //   return (
+  //     hotel.city?.toLowerCase() ===
+  //     searchedCity.toLowerCase()
+  //   );
+  // });
 
-  const filteredHotels = rooms.filter((room) => {
-  if (!searchedCity) return true;
+  let filteredHotels = hotels.filter((hotel) => {
 
-  return (
-    room.hotel?.city?.toLowerCase() ===
-    searchedCity.toLowerCase()
-  );
-});
+    const cityMatch =
+      !searchedCity ||
+      hotel.city?.toLowerCase() === searchedCity.toLowerCase();
 
-  const [priceRange, setPriceRange] = useState(1000);
-  const [currentPage, setCurrentPage] = useState(1);
+    const priceMatch =
+      hotel.startingPrice <= priceRange;
 
-  const hotelsPerPage = 10;
+    return cityMatch && priceMatch;
+  });
+
+  if (sortBy === "low-high") {
+    filteredHotels.sort(
+      (a, b) => a.startingPrice - b.startingPrice
+    );
+  }
+
+  if (sortBy === "high-low") {
+    filteredHotels.sort(
+      (a, b) => b.startingPrice - a.startingPrice
+    );
+  }
+
+
 
   // Calculate the range of hotels to show
   const indexOfLastHotel = currentPage * hotelsPerPage;
@@ -51,14 +73,19 @@ rooms.forEach(room => {
   useEffect(() => {
     const fetchRooms = async () => {
       try {
+        // const { data } = await axios.get(
+        //   `${import.meta.env.VITE_BACKEND_URL}/api/rooms`
+        // );
+
         const { data } = await axios.get(
-          `${import.meta.env.VITE_BACKEND_URL}/api/rooms`
+          `${import.meta.env.VITE_BACKEND_URL}/api/hotels/all`
         );
 
         console.log("API RESPONSE:", data);
 
         if (data.success) {
-          setRooms(data.rooms);
+          // setRooms(data.rooms);
+          setHotels(data.hotels);
         }
       } catch (error) {
         console.log(error);
@@ -82,9 +109,9 @@ rooms.forEach(room => {
 
           {/* LEFT: HOTEL LIST (Spacious Cards) */}
           <div className="flex-1 space-y-10"> {/* Increased gap between cards */}
-            <h1 className="text-red-500 text-3xl">
+            {/* <h1 className="text-red-500 text-3xl">
               Rooms Found: {filteredHotels.length}
-            </h1>
+            </h1> */}
             {currentHotels.map((hotel) => (
               <div
                 // key={hotel.id} 
@@ -93,7 +120,7 @@ rooms.forEach(room => {
               >
 
                 {/* 2. WRAP IMAGE IN LINK */}
-                <Link to={`/room/${hotel._id}`} className="w-full md:w-80 h-64 md:h-72 shrink-0 overflow-hidden rounded-2xl block">
+                <Link to={`/hotel/${hotel._id}`} className="w-full md:w-80 h-64 md:h-72 shrink-0 overflow-hidden rounded-2xl block">
                   <img
                     src={
                       hotel.images?.length > 0
@@ -101,7 +128,7 @@ rooms.forEach(room => {
                         : "https://via.placeholder.com/400x300?text=Room"
                     }
                     className="w-full h-full object-cover transform hover:scale-105 transition-transform duration-500"
-                    alt={hotel.hotel?.name}
+                    alt={hotel.name}
                   />
                 </Link>
 
@@ -113,12 +140,12 @@ rooms.forEach(room => {
                         {/* <h3 className="text-2xl font-bold text-gray-900 mb-2">{hotel.name}</h3> */}
 
                         {/* 3. OPTIONAL: WRAP NAME IN LINK TOO */}
-                        <Link to={`/room/${hotel._id}`}>
-                          <h3 className="text-2xl font-bold text-gray-900 mb-2 hover:text-blue-600 transition">{hotel.hotel?.name}</h3>
+                        <Link to={`/hotel/${hotel._id}`}>
+                          <h3 className="text-2xl font-bold text-gray-900 mb-2 hover:text-blue-600 transition">{hotel.name}</h3>
                         </Link>
                         <p className="text-gray-500 flex items-center text-base">
                           <MapPin className="w-4 h-4 mr-2 text-blue-600" />
-                          {hotel.hotel?.city}, {hotel.hotel?.country}
+                          {hotel.city}, {hotel.country}
                         </p>
                       </div>
                       <div className="flex items-center text-yellow-500 font-bold bg-yellow-50 px-3 py-1.5 rounded-xl border border-yellow-100">
@@ -141,13 +168,13 @@ rooms.forEach(room => {
                     <div className="flex flex-col">
                       <span className="text-gray-400 text-sm font-medium mb-1">Per Night</span>
                       <div className="flex items-baseline gap-1">
-                        <span className="text-3xl font-black text-blue-600">${hotel.pricePerNight}</span>
+                        <span className="text-3xl font-black text-blue-600">Starting from ₹{hotel.startingPrice}</span>
                         <span className="text-gray-400 font-medium">/night</span>
                       </div>
                     </div>
 
                     {/* 4. WRAP BUTTON IN LINK */}
-                    <Link to={`/room/${hotel._id}`}>
+                    <Link to={`/hotel/${hotel._id}`}>
                       <button className="bg-blue-600 text-white px-10 py-4 rounded-2xl font-bold hover:bg-blue-700 transition-all shadow-lg shadow-blue-100 active:scale-95">
                         Book This Room
                       </button>
@@ -204,7 +231,7 @@ rooms.forEach(room => {
               </div>
 
               {/* Filter 1: Room Size */}
-              <div className="mb-8">
+              {/* <div className="mb-8">
                 <h3 className="font-bold text-gray-800 mb-4 text-sm uppercase tracking-wide">Room Category</h3>
                 <div className="space-y-3">
                   {["Single Bed", "Double Bed", "Family Suites", "Luxury Rooms"].map((type) => (
@@ -214,23 +241,23 @@ rooms.forEach(room => {
                     </label>
                   ))}
                 </div>
-              </div>
+              </div> */}
 
               {/* Filter 2: Price Range */}
               <div className="mb-8">
-                <h3 className="font-bold text-gray-800 mb-4 text-sm uppercase tracking-wide">Max Price: ${priceRange}</h3>
+                <h3 className="font-bold text-gray-800 mb-4 text-sm uppercase tracking-wide">Max Price: ₹{priceRange}</h3>
                 <input
                   type="range"
-                  min="50"
-                  max="1000"
-                  step="10"
+                  min="2000"
+                  max="20000"
+                  step="500"
                   value={priceRange}
                   onChange={(e) => setPriceRange(e.target.value)}
                   className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-blue-600"
                 />
                 <div className="flex justify-between mt-2 text-xs font-bold text-gray-400">
-                  <span>$50</span>
-                  <span>$1000+</span>
+                  <span>₹2,000</span>
+                  <span>₹20,000+</span>
                 </div>
               </div>
 
@@ -238,18 +265,29 @@ rooms.forEach(room => {
               <div className="mb-8">
                 <h3 className="font-bold text-gray-800 mb-4 text-sm uppercase tracking-wide">Sort Results</h3>
                 <div className="relative">
-                  <select className="w-full p-3 bg-gray-50 border border-gray-200 rounded-xl text-sm font-medium focus:outline-none focus:ring-2 focus:ring-blue-500 appearance-none">
+                  {/* <select className="w-full p-3 bg-gray-50 border border-gray-200 rounded-xl text-sm font-medium focus:outline-none focus:ring-2 focus:ring-blue-500 appearance-none">
                     <option>Featured Stays</option>
                     <option>Price: Low to High</option>
                     <option>Price: High to Low</option>
                     <option>Ratings: High to Low</option>
+                  </select> */}
+
+                  <select
+                    value={sortBy}
+                    onChange={(e) => setSortBy(e.target.value)}
+                    className="w-full p-3 bg-gray-50 border border-gray-200 rounded-xl text-sm font-medium focus:outline-none focus:ring-2 focus:ring-blue-500 appearance-none"
+                  >
+                    <option value="featured">Featured Stays</option>
+                    <option value="low-high">Price: Low to High</option>
+                    <option value="high-low">Price: High to Low</option>
                   </select>
+
                   <ChevronDown className="absolute right-3 top-3.5 w-4 h-4 text-gray-400 pointer-events-none" />
                 </div>
               </div>
 
               {/* Apply Button */}
-              <button className="w-full bg-gray-900 text-white py-4 rounded-2xl font-bold hover:bg-black transition-all active:scale-95 shadow-lg shadow-gray-200">
+              <button disabled className="w-full bg-gray-900 text-white py-4 rounded-2xl font-bold hover:bg-black transition-all active:scale-95 shadow-lg shadow-gray-200">
                 Apply Filters
               </button>
             </div>
