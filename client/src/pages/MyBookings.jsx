@@ -72,6 +72,36 @@ const MyBookings = () => {
     }
   };
 
+  const cancelBooking = async (bookingId) => {
+    try {
+
+      const token = await getToken();
+
+      const { data } = await axios.put(
+        // `${backendUrl}/api/bookings/cancel/${bookingId}`,
+        `/api/bookings/cancel/${bookingId}`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        }
+      );
+
+      if (data.success) {
+        alert(data.message);
+
+        //  getUserBookings();
+        fetchBookings();
+      } else {
+        alert(data.message);
+      }
+
+    } catch (error) {
+      alert(error.message);
+    }
+  };
+
   return (
     <div className="pt-28 pb-20 bg-gray-50 min-h-screen">
       <div className="container mx-auto px-6">
@@ -139,7 +169,7 @@ const MyBookings = () => {
                           <Users size={14} /> {booking.guests} Guests
                         </span>
                         <span className="text-xs font-bold text-gray-400 flex items-center gap-1">
-                          <CreditCard size={14} /> Total: ${booking.totalPrice}
+                          <CreditCard size={14} /> Total: ₹{booking.totalPrice}
                         </span>
                       </div>
                     </div>
@@ -165,13 +195,37 @@ const MyBookings = () => {
                   <div className="col-span-1 flex flex-col items-center w-full gap-3">
 
                     {/* The Status Indicator */}
-                    <div className={`w-full flex items-center justify-center gap-2 px-4 py-2 rounded-full font-bold text-sm ${booking.isPaid
+                    {/* <div className={`w-full flex items-center justify-center gap-2 px-4 py-2 rounded-full font-bold text-sm ${booking.isPaid
                       ? "bg-green-50 text-green-600"
                       : "bg-red-50 text-red-600"
                       }`}>
                       <span className={`w-2.5 h-2.5 rounded-full ${booking.isPaid ? "bg-green-500" : "bg-red-500"
                         }`}></span>
                       {booking.isPaid ? "Paid" : "Unpaid"}
+                    </div> */}
+
+                    <div
+                      className={`w-full flex items-center justify-center gap-2 px-4 py-2 rounded-full font-bold text-sm ${booking.status === "cancelled"
+                          ? "bg-red-50 text-red-600"
+                          : booking.isPaid
+                            ? "bg-green-50 text-green-600"
+                            : "bg-yellow-50 text-yellow-600"
+                        }`}
+                    >
+                      <span
+                        className={`w-2.5 h-2.5 rounded-full ${booking.status === "cancelled"
+                            ? "bg-red-500"
+                            : booking.isPaid
+                              ? "bg-green-500"
+                              : "bg-yellow-500"
+                          }`}
+                      ></span>
+
+                      {booking.status === "cancelled"
+                        ? "Cancelled"
+                        : booking.isPaid
+                          ? "Paid"
+                          : "Unpaid"}
                     </div>
 
                     {/* Pay Now Button - Triggers only if Unpaid */}
@@ -179,6 +233,15 @@ const MyBookings = () => {
                       <button onClick={() => handlePayment(booking._id)}
                         className="w-full bg-red-500 text-white text-xs py-2.5 rounded-xl font-bold hover:bg-red-600 transition-all shadow-md active:scale-95"
                       > Pay Now </button>
+                    )}
+
+                    {booking.status !== "cancelled" && (
+                      <button
+                        onClick={() => cancelBooking(booking._id)}
+                        className="w-full bg-gray-700 text-white text-xs py-2.5 rounded-xl font-bold hover:bg-gray-800 transition-all shadow-md active:scale-95"
+                      >
+                        Cancel Booking
+                      </button>
                     )}
                   </div>
 

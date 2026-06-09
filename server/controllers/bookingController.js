@@ -9,6 +9,7 @@ const checkAvailability = async ({ checkInDate, checkOutDate, room }) => {
     try {
         const bookings = await Booking.find({
             room,
+            status: { $ne: "cancelled" },
             checkInDate: { $lt: checkOutDate },
             checkOutDate: { $gt: checkInDate },
         });
@@ -200,6 +201,45 @@ export const verifyPayment = async (req, res) => {
     } catch (error) {
         console.log(error);
 
+        res.json({
+            success: false,
+            message: error.message,
+        });
+    }
+};
+
+export const cancelBooking = async (req, res) => {
+    try {
+
+        const { bookingId } = req.params;
+
+        const booking = await Booking.findById(bookingId);
+
+        if (!booking) {
+            return res.json({
+                success: false,
+                message: "Booking not found",
+            });
+        }
+
+        // Only owner can cancel
+        if (booking.user.toString() !== req.user._id.toString()) {
+            return res.json({
+                success: false,
+                message: "Unauthorized",
+            });
+        }
+
+        booking.status = "cancelled";
+
+        await booking.save();
+
+        res.json({
+            success: true,
+            message: "Booking cancelled successfully",
+        });
+
+    } catch (error) {
         res.json({
             success: false,
             message: error.message,

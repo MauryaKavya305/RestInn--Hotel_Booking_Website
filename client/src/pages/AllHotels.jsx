@@ -30,6 +30,8 @@ const AllHotels = () => {
   //     searchedCity.toLowerCase()
   //   );
   // });
+  const [selectedCity, setSelectedCity] = useState("");
+  const cities = [...new Set(hotels.map(hotel => hotel.city))].sort();
 
   let filteredHotels = hotels.filter((hotel) => {
 
@@ -37,10 +39,14 @@ const AllHotels = () => {
       !searchedCity ||
       hotel.city?.toLowerCase() === searchedCity.toLowerCase();
 
+     const cityFilterMatch =
+    !selectedCity ||
+    hotel.city === selectedCity;
+
     const priceMatch =
       hotel.startingPrice <= priceRange;
 
-    return cityMatch && priceMatch;
+    return cityMatch && cityFilterMatch && priceMatch;
   });
 
   if (sortBy === "low-high") {
@@ -242,6 +248,45 @@ const AllHotels = () => {
                   ))}
                 </div>
               </div> */}
+
+              {/* Filter 1: City */}
+              <div className="mb-8">
+                <h3 className="font-bold text-gray-800 mb-4 text-sm uppercase tracking-wide">
+                  City
+                </h3>
+
+                <div className="space-y-3">
+                  <label className="flex items-center gap-3 cursor-pointer group">
+                    <input
+                      type="radio"
+                      name="city"
+                      checked={selectedCity === ""}
+                      onChange={() => setSelectedCity("")}
+                    />
+                    <span className="text-gray-600 text-sm font-medium">
+                      All Cities
+                    </span>
+                  </label>
+
+                  {cities.map((city) => (
+                    <label
+                      key={city}
+                      className="flex items-center gap-3 cursor-pointer group"
+                    >
+                      <input
+                        type="radio"
+                        name="city"
+                        checked={selectedCity === city}
+                        onChange={() => setSelectedCity(city)}
+                      />
+
+                      <span className="text-gray-600 group-hover:text-blue-600 transition text-sm font-medium">
+                        {city}
+                      </span>
+                    </label>
+                  ))}
+                </div>
+              </div>
 
               {/* Filter 2: Price Range */}
               <div className="mb-8">
