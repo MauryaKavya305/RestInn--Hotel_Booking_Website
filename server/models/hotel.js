@@ -1,3 +1,16 @@
+// import mongoose from "mongoose";
+
+// const hotelSchema = new mongoose.Schema({
+//     name: { type: String, required: true },
+//     country: { type: String, required: true },
+//     contact: { type: String, required: true },
+//     owner: { type: String, required: true, ref: "User" },
+//     city: { type: String, required: true },
+// }, { timestamps: true });
+
+// const Hotel = mongoose.model("Hotel", hotelSchema);
+// export default Hotel;
+
 import mongoose from "mongoose";
 
 const hotelSchema = new mongoose.Schema({
@@ -6,6 +19,16 @@ const hotelSchema = new mongoose.Schema({
     contact: { type: String, required: true },
     owner: { type: String, required: true, ref: "User" },
     city: { type: String, required: true },
+
+    image: {
+        type: String,
+        default: ""
+    },
+
+    gallery: [{
+        type: String
+    }]
+
 }, { timestamps: true });
 
 const Hotel = mongoose.model("Hotel", hotelSchema);

@@ -39,10 +39,15 @@ const FeaturedHotels = () => {
               <Link to={`/room/${hotel._id}`} className="block h-48 w-full overflow-hidden">
                 <img
                   //  src={hotel.image}
+                  // src={
+                  //   hotel.images?.length > 0
+                  //     ? hotel.images[0]
+                  //     : "https://via.placeholder.com/400x300?text=Hotel"
+                  // }
+
                   src={
-                    hotel.images?.length > 0
-                      ? hotel.images[0]
-                      : "https://via.placeholder.com/400x300?text=Hotel"
+                    hotel.image ||
+                    "https://via.placeholder.com/400x300?text=Hotel"
                   }
                   alt={hotel.name}
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"

@@ -12,41 +12,89 @@ const hotels = [
     name: "The Taj Mahal Palace",
     city: "Mumbai",
     country: "India",
+    image: "https://res.cloudinary.com/dd1uk0uzo/image/upload/v1781107019/taj-1_dydw3h.png",
+    gallery: [
+      "https://res.cloudinary.com/dd1uk0uzo/image/upload/v1781107019/taj-2_qpv71h.png",
+      "https://res.cloudinary.com/dd1uk0uzo/image/upload/v1781107019/taj-3_emffpe.png",
+      "https://res.cloudinary.com/dd1uk0uzo/image/upload/v1781107018/taj-4_n8sehn.png"
+    ]
   },
   {
     name: "Oberoi Amarvilas",
     city: "Agra",
     country: "India",
+    image: "https://res.cloudinary.com/dd1uk0uzo/image/upload/v1781107018/ob-1_moos4r.png",
+    gallery: [
+      "https://res.cloudinary.com/dd1uk0uzo/image/upload/v1781107018/ob-2_dchbzq.png",
+      "https://res.cloudinary.com/dd1uk0uzo/image/upload/v1781107018/ob-3_bl7z4g.png",
+      "https://res.cloudinary.com/dd1uk0uzo/image/upload/v1781107017/ob-4_f0cnaq.png"
+    ]
   },
   {
     name: "Rambagh Palace",
     city: "Jaipur",
     country: "India",
+    image: "https://res.cloudinary.com/dd1uk0uzo/image/upload/v1781107017/ram-1_bl3ghq.png",
+    gallery: [
+      "https://res.cloudinary.com/dd1uk0uzo/image/upload/v1781107016/ram-2_cxn9rk.png",
+      "https://res.cloudinary.com/dd1uk0uzo/image/upload/v1781107018/ram-3_z7ijdh.png",
+      "https://res.cloudinary.com/dd1uk0uzo/image/upload/v1781107016/ram-4_xtglcw.png"
+    ]
   },
   {
     name: "ITC Grand Chola",
     city: "Chennai",
     country: "India",
+    image: "https://res.cloudinary.com/dd1uk0uzo/image/upload/v1781107015/chola-1_sstl19.png",
+    gallery: [
+      "https://res.cloudinary.com/dd1uk0uzo/image/upload/v1781107016/chola-2_hrohvb.png",
+      "https://res.cloudinary.com/dd1uk0uzo/image/upload/v1781107015/chola-3_fmhb92.png",
+      "https://res.cloudinary.com/dd1uk0uzo/image/upload/v1781107014/chola-4_hcbmyk.png"
+    ]
   },
   {
     name: "The Leela Palace",
     city: "Udaipur",
     country: "India",
+    image: "https://res.cloudinary.com/dd1uk0uzo/image/upload/v1781107016/leela-1_cqbqmr.png",
+    gallery: [
+      "https://res.cloudinary.com/dd1uk0uzo/image/upload/v1781107016/leela-2_g3idxm.png",
+      "https://res.cloudinary.com/dd1uk0uzo/image/upload/v1781107015/leela-3_cps64k.png",
+      "https://res.cloudinary.com/dd1uk0uzo/image/upload/v1781107014/leela-4_njwyqh.png"
+    ]
   },
   {
     name: "JW Marriott",
     city: "Bangalore",
     country: "India",
+    image: "https://res.cloudinary.com/dd1uk0uzo/image/upload/v1781107013/jw-1_at7gpm.png",
+    gallery: [
+      "https://res.cloudinary.com/dd1uk0uzo/image/upload/v1781107014/jw-2_fsgqda.png",
+      "https://res.cloudinary.com/dd1uk0uzo/image/upload/v1781107014/jw-3_z3dnjg.png",
+      "https://res.cloudinary.com/dd1uk0uzo/image/upload/v1781107013/jw-4_isxfgc.png"
+    ]
   },
   {
     name: "Radisson Blu",
     city: "Goa",
     country: "India",
+    image: "https://res.cloudinary.com/dd1uk0uzo/image/upload/v1781111134/blu-1_sx3sub.png",
+    gallery: [
+      "https://res.cloudinary.com/dd1uk0uzo/image/upload/v1781111132/blu-2_lxpd1u.png",
+      "https://res.cloudinary.com/dd1uk0uzo/image/upload/v1781111133/blu-3_fvvkwt.png",
+      "https://res.cloudinary.com/dd1uk0uzo/image/upload/v1781111133/blu-4_pl7qgp.png"
+    ]
   },
   {
     name: "Park Hyatt",
     city: "Hyderabad",
     country: "India",
+    image: "https://res.cloudinary.com/dd1uk0uzo/image/upload/v1781111132/park-1_mzx25x.png",
+    gallery: [
+      "https://res.cloudinary.com/dd1uk0uzo/image/upload/v1781111132/park-2_ddqpwb.png",
+      "https://res.cloudinary.com/dd1uk0uzo/image/upload/v1781111131/park-3_r1mio6.png",
+      "https://res.cloudinary.com/dd1uk0uzo/image/upload/v1781111132/park-4_mreb1w.png"
+    ]
   },
   {
     name: "Zostel",
