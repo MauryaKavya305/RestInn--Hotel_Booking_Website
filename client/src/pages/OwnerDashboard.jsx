@@ -298,8 +298,9 @@ const DashboardOverview = ({ data }) => {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
         <StatCard 
           title="Total Revenue" 
-          value={`$${totalRevenue.toLocaleString()}`} 
-          icon={<DollarSign />} 
+          icon= "₹"
+          value={`${totalRevenue.toLocaleString()}`} 
+          // icon={<DollarSign />} 
           color="text-green-600" 
           bg="bg-green-50" 
         />
@@ -340,7 +341,7 @@ const DashboardOverview = ({ data }) => {
                 name={booking.user?.username || 'Guest'}
                 roomType={booking.room?.roomType || 'N/A'}
                 checkIn={new Date(booking.checkInDate).toLocaleDateString()}
-                amount={`$${booking.totalPrice}`}
+                amount={`₹${booking.totalPrice}`}
                 status={booking.isPaid ? 'Paid' : 'Unpaid'}
               />
             ))}
@@ -547,9 +548,9 @@ const MyRoomsView = ({ rooms, onToggle, onDelete }) => {
                 className="w-full h-full object-cover group-hover:scale-110 transition duration-500" 
                 alt={room.roomType} 
               />
-              <div className="absolute top-4 right-4 bg-white/90 backdrop-blur px-3 py-1 rounded-xl text-xs font-black text-blue-600">
+              {/* <div className="absolute top-4 right-4 bg-white/90 backdrop-blur px-3 py-1 rounded-xl text-xs font-black text-blue-600">
                 ${room.pricePerNight}/night
-              </div>
+              </div> */}
               <div className={`absolute top-4 left-4 px-3 py-1 rounded-xl text-xs font-black ${
                 room.isAvailable ? 'bg-green-100 text-green-600' : 'bg-red-100 text-red-600'
               }`}>
@@ -558,7 +559,7 @@ const MyRoomsView = ({ rooms, onToggle, onDelete }) => {
             </div>
             <div className="p-6">
               <h3 className="font-bold text-lg text-gray-900 mb-1">{room.roomType}</h3>
-              <p className="text-gray-400 text-sm mb-4">{room.hotel?.name || 'Your Hotel'}</p>
+              {/* <p className="text-gray-400 text-sm mb-4">{room.hotel?.name || 'Your Hotel'}</p> */}
               <div className="text-xs text-gray-500 mb-4">
                 <p>Amenities: {room.amenities.join(', ')}</p>
               </div>

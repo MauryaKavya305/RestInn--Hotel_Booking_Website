@@ -37,11 +37,11 @@ const AllHotels = () => {
 
     const cityMatch =
       !searchedCity ||
-      hotel.city?.toLowerCase() === searchedCity.toLowerCase();
+      hotel.city?.toLowerCase() === searchCityOnly.toLowerCase();
 
-     const cityFilterMatch =
-    !selectedCity ||
-    hotel.city === selectedCity;
+    const cityFilterMatch =
+      !selectedCity ||
+      hotel.city === selectedCity;
 
     const priceMatch =
       hotel.startingPrice <= priceRange;
@@ -128,10 +128,15 @@ const AllHotels = () => {
                 {/* 2. WRAP IMAGE IN LINK */}
                 <Link to={`/hotel/${hotel._id}`} className="w-full md:w-80 h-64 md:h-72 shrink-0 overflow-hidden rounded-2xl block">
                   <img
+                    // src={
+                    //   hotel.images?.length > 0
+                    //     ? hotel.images[0]
+                    //     : "https://via.placeholder.com/400x300?text=Room"
+                    // }
+
                     src={
-                      hotel.images?.length > 0
-                        ? hotel.images[0]
-                        : "https://via.placeholder.com/400x300?text=Room"
+                      hotel.image ||
+                      "https://via.placeholder.com/400x300?text=Hotel"
                     }
                     className="w-full h-full object-cover transform hover:scale-105 transition-transform duration-500"
                     alt={hotel.name}

@@ -197,7 +197,7 @@ const RegisterHotel = ({ onHotelAdded }) => {
               <div className="flex flex-col gap-2">
                 <label className="text-sm font-black text-gray-400 uppercase tracking-widest ml-1">Contact Number</label>
                 <div className="flex items-center gap-3 bg-gray-50 border border-gray-200 p-4 rounded-2xl focus-within:border-blue-500 transition-all">
-                  <DollarSign className="text-blue-600" size={20} />
+                  {/* <DollarSign className="text-blue-600" size={20} /> */}
                   <input
                     name="contact"
                     type="text"

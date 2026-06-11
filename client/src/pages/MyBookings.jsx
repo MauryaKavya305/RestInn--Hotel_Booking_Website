@@ -151,11 +151,22 @@ const MyBookings = () => {
                   <div className="col-span-3 flex flex-col md:flex-row gap-6 w-full">
                     <img
                       //  src={hotel?.image || booking.image}
+                      // src={
+                      //   room?.images?.length > 0
+                      //     ? room.images[0]
+                      //     : "https://via.placeholder.com/300x200?text=Room"
+                      // }
+
+                      // src={
+                      //   booking.hotel?.image ||
+                      //   // hotel.image ||
+                      //   "https://via.placeholder.com/300x200?text=Hotel"
+                      // }
+
                       src={
-                        room?.images?.length > 0
-                          ? room.images[0]
-                          : "https://via.placeholder.com/300x200?text=Room"
-                      }
+  hotel?.image ||
+  "https://via.placeholder.com/300x200?text=Hotel"
+}
                       className="w-full md:w-40 h-32 object-cover rounded-2xl shrink-0"
                       alt={hotel?.name}
                     />
@@ -206,18 +217,18 @@ const MyBookings = () => {
 
                     <div
                       className={`w-full flex items-center justify-center gap-2 px-4 py-2 rounded-full font-bold text-sm ${booking.status === "cancelled"
-                          ? "bg-red-50 text-red-600"
-                          : booking.isPaid
-                            ? "bg-green-50 text-green-600"
-                            : "bg-yellow-50 text-yellow-600"
+                        ? "bg-red-50 text-red-600"
+                        : booking.isPaid
+                          ? "bg-green-50 text-green-600"
+                          : "bg-yellow-50 text-yellow-600"
                         }`}
                     >
                       <span
                         className={`w-2.5 h-2.5 rounded-full ${booking.status === "cancelled"
-                            ? "bg-red-500"
-                            : booking.isPaid
-                              ? "bg-green-500"
-                              : "bg-yellow-500"
+                          ? "bg-red-500"
+                          : booking.isPaid
+                            ? "bg-green-500"
+                            : "bg-yellow-500"
                           }`}
                       ></span>
 

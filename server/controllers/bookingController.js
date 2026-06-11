@@ -1,8 +1,9 @@
 import Booking from "../models/booking.js";
 import Room from "../models/room.js";
 import Hotel from "../models/hotel.js";
-import transporter from "../configs/nodeMailer.js";
+// import transporter from "../configs/nodeMailer.js";
 import stripe from "stripe";
+import User from "../models/user.js";
 
 // Helper: check if a room is available for the given date range
 const checkAvailability = async ({ checkInDate, checkOutDate, room }) => {
@@ -63,26 +64,26 @@ export const createBooking = async (req, res) => {
             totalPrice,
         });
 
-        const mailOptions = {
-            from: process.env.SENDER_MAIL,
-            to: req.user.email,
-            subject: "Hotel Booking Details",
-            html: `<h2> Your Booking details </h2>
-            <p> Dear ${req.user.username}, </p>
-            <p> Thank you for your booking in our hotel. Here are your booking details: </p>
-            <ul>
-                <li> <strong>Booking ID: </strong> ${booking._id} </li>
-                <li> <strong>Hotel Name: </strong> ${roomData.hotel.name} </li>
-                <li> <strong>Location: </strong> ${roomData.hotel.address} </li>
-                <li> <strong>Check-in Date: </strong> ${booking.checkInDate.toDateString()} </li>
-                <li> <strong>Booking Amount: </strong> ${process.env.CURRENCY || '$'} ${booking.totalPrice} / night </li>
+        // const mailOptions = {
+        //     from: process.env.SENDER_MAIL,
+        //     to: req.user.email,
+        //     subject: "Hotel Booking Details",
+        //     html: `<h2> Your Booking details </h2>
+        //     <p> Dear ${req.user.username}, </p>
+        //     <p> Thank you for your booking in our hotel. Here are your booking details: </p>
+        //     <ul>
+        //         <li> <strong>Booking ID: </strong> ${booking._id} </li>
+        //         <li> <strong>Hotel Name: </strong> ${roomData.hotel.name} </li>
+        //         <li> <strong>Location: </strong> ${roomData.hotel.address} </li>
+        //         <li> <strong>Check-in Date: </strong> ${booking.checkInDate.toDateString()} </li>
+        //         <li> <strong>Booking Amount: </strong> ${process.env.CURRENCY || '$'} ${booking.totalPrice} / night </li>
 
-            </ul>
-            <p> We look forward to welcome you! </p>
-            <p> If you need to make any changes, then feel free to contact us. </p>`
-        }
+        //     </ul>
+        //     <p> We look forward to welcome you! </p>
+        //     <p> If you need to make any changes, then feel free to contact us. </p>`
+        // }
 
-        await transporter.sendMail(mailOptions);
+        // await transporter.sendMail(mailOptions);
 
         res.json({ success: true, message: "Booking created successfully" });
     } catch (error) {
@@ -107,20 +108,79 @@ export const getUserBookings = async (req, res) => {
 // GET /api/bookings/hotel
 export const getHotelBookings = async (req, res) => {
     try {
-        // FIX: Use req.user._id consistently (protect middleware sets req.user)
-        const hotel = await Hotel.findOne({ owner: req.user._id });
-        if (!hotel) {
-            return res.json({ success: false, message: "No hotel found for this user" });
+        console.log("REQ USER:", req.user);
+
+        const hotels = await Hotel.find({
+            owner: req.user._id
+        });
+
+        console.log("HOTELS FOUND:", hotels.length);
+
+        if (!hotels.length) {
+            return res.json({
+                success: false,
+                message: "No hotels found for this user"
+            });
         }
 
-        const bookings = await Booking.find({ hotel: hotel._id })
-            .populate("room hotel user")
+        const hotelIds = hotels.map(hotel => hotel._id);
+
+        console.log("HOTEL IDS:", hotelIds);
+
+        // const bookings = await Booking.find({
+        //     hotel: { $in: hotelIds }
+        // })
+        //     .populate("room hotel user")
+        //     .sort({ createdAt: -1 });
+
+        const bookings = await Booking.find({
+            hotel: { $in: hotelIds }
+        })
+            .populate("room hotel")
             .sort({ createdAt: -1 });
 
-        const totalBookings = bookings.length;
-        const totalRevenue = bookings.reduce((acc, booking) => acc + booking.totalPrice, 0);
+        const bookingsWithUsers = await Promise.all(
+            bookings.map(async (booking) => {
+                const user = await User.findOne({
+                    _id: booking.user
+                });
 
-        res.json({ success: true, dashboardData: { totalBookings, totalRevenue, bookings } });
+                return {
+                    ...booking.toObject(),
+                    user,
+                };
+            })
+        );
+
+        //console.log("HOTEL ID:", hotel._id);
+        // console.log("BOOKINGS FOUND:", bookings.length);
+        // console.log("BOOKINGS:", bookings);
+        // console.log("FIRST BOOKING USER:", bookings[0]?.user);
+
+        //const totalBookings = bookings.length;
+        const totalBookings = bookingsWithUsers.length;
+
+        // const totalRevenue = bookings
+        const totalRevenue = bookingsWithUsers
+            .filter(
+                booking =>
+                    booking.isPaid &&
+                    booking.status !== "cancelled"
+            )
+            .reduce(
+                (acc, booking) => acc + booking.totalPrice,
+                0
+            );
+
+        // res.json({ success: true, dashboardData: { totalBookings, totalRevenue, bookings } });
+        res.json({
+            success: true,
+            dashboardData: {
+                totalBookings,
+                totalRevenue,
+                bookings: bookingsWithUsers,
+            }
+        });
     } catch (error) {
         res.json({ success: false, message: "Failed to fetch hotel bookings" });
     }

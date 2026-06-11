@@ -36,7 +36,7 @@ const FeaturedHotels = () => {
             <div key={hotel._id} className="bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition group">
 
               {/* 2. Wrap the image in a Link so it's clickable */}
-              <Link to={`/room/${hotel._id}`} className="block h-48 w-full overflow-hidden">
+              <Link to={`/hotel/${hotel._id}`} className="block h-48 w-full overflow-hidden">
                 <img
                   //  src={hotel.image}
                   // src={
@@ -74,7 +74,7 @@ const FeaturedHotels = () => {
 
                   {/* 3. Change 'button' to 'Link' for the Book Now action */}
                   <Link
-                    to={`/room/${hotel._id}`}
+                    to={`/hotel/${hotel._id}`}
                     className="text-blue-600 font-bold hover:underline"
                   >
                     Book Now

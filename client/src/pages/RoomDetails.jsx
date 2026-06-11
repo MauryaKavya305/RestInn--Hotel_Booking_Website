@@ -101,9 +101,9 @@ const RoomDetails = () => {
         <div className="flex items-center gap-4 mb-2">
           <h1 className="text-4xl font-bold text-gray-900"> {room.hotel.name}</h1>
 
-          <span className="bg-red-100 text-red-600 px-3 py-1 rounded-full text-sm font-bold">
+          {/* <span className="bg-red-100 text-red-600 px-3 py-1 rounded-full text-sm font-bold">
             {room.roomType}% OFF
-          </span>
+          </span> */}
         </div>
 
         <div className="flex items-center gap-4 mb-4">
@@ -119,7 +119,7 @@ const RoomDetails = () => {
         </div>
 
         {/* IMAGE GALLERY */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-12">
+        {/* <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-12">
           <div className="h-[500px] overflow-hidden rounded-3xl shadow-lg">
             <img src={
               room.images?.length > 0
@@ -137,7 +137,36 @@ const RoomDetails = () => {
               />
             </div>
           ))}
-        </div>
+        </div> */}
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-12">
+
+  {/* Main Hotel Image */}
+  <div className="h-[500px] overflow-hidden rounded-3xl shadow-lg">
+    <img
+      src={
+        room.hotel?.image ||
+        "https://via.placeholder.com/800x500?text=Hotel"
+      }
+      className="w-full h-full object-cover hover:scale-110 transition duration-500"
+      alt={room.hotel?.name}
+    />
+  </div>
+
+  {/* Gallery Images */}
+  {room.hotel?.gallery?.map((img, idx) => (
+    <div
+      key={idx}
+      className="overflow-hidden rounded-2xl shadow-sm h-[500px] w-[600px]"
+    >
+      <img
+        src={img}
+        className="w-full h-full object-cover hover:scale-110 transition duration-500"
+        alt={`Gallery ${idx + 1}`}
+      />
+    </div>
+  ))}
+</div>
 
         {/* FACILITIES & PRICE */}
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center py-8 border-b border-gray-100 mb-12">
@@ -151,7 +180,7 @@ const RoomDetails = () => {
           <div className="text-right mt-6 md:mt-0">
             <p className="text-gray-400 font-bold text-xs uppercase tracking-widest">Pricing Starts At</p>
             <div className="flex items-baseline gap-1">
-              <span className="text-5xl font-black text-blue-600">${room.pricePerNight}</span>
+              <span className="text-5xl font-black text-blue-600">₹{room.pricePerNight}</span>
               <span className="text-gray-500 font-bold">/night</span>
             </div>
           </div>
