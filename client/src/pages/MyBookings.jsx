@@ -240,7 +240,7 @@ const MyBookings = () => {
                     </div>
 
                     {/* Pay Now Button - Triggers only if Unpaid */}
-                    {!booking.isPaid && (
+                    {!booking.isPaid && booking.status !== "cancelled" && (
                       <button onClick={() => handlePayment(booking._id)}
                         className="w-full bg-red-500 text-white text-xs py-2.5 rounded-xl font-bold hover:bg-red-600 transition-all shadow-md active:scale-95"
                       > Pay Now </button>
